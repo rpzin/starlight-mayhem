@@ -1,0 +1,111 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				3,
+				0
+			],
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "cj idle dance"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-36,
+				34
+			],
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "cj Sing Note UP"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				27,
+				10
+			],
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "cj Sing Note LEFT"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-38,
+				39
+			],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "cj Sing Note RIGHT"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-53,
+				-17
+			],
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "cj Sing Note DOWN"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				592,
+				226
+			],
+			"fps": 24,
+			"anim": "INTRO",
+			"indices": [],
+			"name": "cj intro"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-33,
+				31
+			],
+			"fps": 24,
+			"anim": "SINGLE HA",
+			"indices": [],
+			"name": "cj singleha"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-33,
+				31
+			],
+			"fps": 24,
+			"anim": "DOUBLE HA",
+			"indices": [],
+			"name": "cj doubleha"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/new/cj_assets",
+	"position": [
+		30,
+		-30
+	],
+	"healthicon": "cj",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		75,
+		255
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 4,
+	"scale": 1
+}
