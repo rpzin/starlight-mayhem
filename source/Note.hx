@@ -101,6 +101,7 @@ class Note extends FlxSprite
 						missHealth = 0.3;
 					}
 					hitCausesMiss = true;
+					kill();
 				case 'No Animation':
 					noAnimation = true;
 			}

@@ -44,6 +44,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		bf = new Boyfriend(x, y, characterName);
 		add(bf);
 
+		if (characterName == 'bf-cj')
+			bf.flipX = false;
+
 		camFollow = new FlxPoint(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y);
 
 		FlxG.sound.play(Paths.sound(deathSoundName));

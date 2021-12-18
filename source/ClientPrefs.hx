@@ -27,6 +27,7 @@ class ClientPrefs {
 	public static var imagesPersist:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var hideTime:Bool = false;
+	public static var oldvoice:Bool = false;
 
 	//Every key has two binds, these binds are defined on defaultKeys! If you want your control to be changeable, you have to add it on ControlsSubState (inside OptionsState.hx)'s list
 	public static var keyBinds:Map<String, Dynamic> = new Map<String, Dynamic>();
@@ -68,6 +69,7 @@ class ClientPrefs {
 		FlxG.save.data.speed = speed;
 		FlxG.save.data.scroll = scroll;
 		FlxG.save.data.noteSize = noteSize;
+		FlxG.save.data.oldvoice = oldvoice;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
@@ -110,6 +112,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.lowQuality != null) {
 			lowQuality = FlxG.save.data.lowQuality;
+		}
+		if(FlxG.save.data.oldvoice != null) {
+			oldvoice = FlxG.save.data.oldvoice;
 		}
 		if(FlxG.save.data.framerate != null) {
 			framerate = FlxG.save.data.framerate;

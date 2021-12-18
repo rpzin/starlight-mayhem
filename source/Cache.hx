@@ -44,29 +44,12 @@ class Cache extends MusicBeatState
 	public static var graphicassets:Map<String, FlxGraphic>;
 	var aaaaa:FlxText;
 	var percentlol:FlxText;
-	var music = [];
-	var whatisloading:String = '';
 
-	var assets:Map<String, Preloadtype> = [
-        'stage' => Preloadtype.image, 
-        'event/bg' => Preloadtype.image, 
-        'RGBfrontboppers' => Preloadtype.image, 
-        'frontboppers' => Preloadtype.image, 
-        'headlights' => Preloadtype.image, 
-        'headlightsRGB' => Preloadtype.image, 
-        'dusk/bg' => Preloadtype.image,
-		'night/bg' => Preloadtype.image,
-		'morning/bg' => Preloadtype.image,
-		'event/light' => Preloadtype.image,
-		'event/stage' => Preloadtype.image,
-		'light0' => Preloadtype.image,
-		'light1' => Preloadtype.image,
-		'light2' => Preloadtype.image,
-		'light3' => Preloadtype.image,
-		'light4' => Preloadtype.image,
-		'light5' => Preloadtype.image,
-		'gstage/lebg' => Preloadtype.image,
-    ];
+	var images = [];
+	var images2 = [];
+	var music = [];
+
+	var whatisloading:String = '';
 
 	var characterlist = ['Max','MaxRGB','new/cj_assets','BFGFRGB','BFGF'
 	,'NoGFRGB','NoGF','new/ruby_assets','AbelRGB','Abel','Olley','Olley2','ruby_assets','new/duet_assets','new/duet_assets2'];
@@ -76,6 +59,8 @@ class Cache extends MusicBeatState
 		FlxG.mouse.visible = false;
 
 		FlxG.worldBounds.set(0,0);
+
+		FlxGraphic.defaultPersist = true;
 
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('load'));
 		menuBG.screenCenter();
@@ -92,15 +77,34 @@ class Cache extends MusicBeatState
 		percentlol.scrollFactor.set();
 		percentlol.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(percentlol);
+
 		#if cpp
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images/characters")))
+		{
+			if (!i.endsWith(".png"))
+				continue;
+			images.push(i);
+		}
+
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/CJ/images")))
+			{
+				if (!i.endsWith(".png"))
+					continue;
+				images2.push(i);
+			}
+
 		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/songs")))
 		{
 			music.push(i);
 		}
 		#end
-		Thread.create(function(){
+
+
+		#if cpp
+		sys.thread.Thread.create(() -> {
 			cachethem();
 		});
+		#end
 
 		super.create();
 	}
@@ -109,7 +113,7 @@ class Cache extends MusicBeatState
 	override function update(elapsed) 
 	{
 		super.update(elapsed);
-		percentlol.text = '$whatisloading ${Std.string(flixel.math.FlxMath.roundDecimal(ism / max * 100, 0))}%';
+		//percentlol.text = '$whatisloading ${Std.string(flixel.math.FlxMath.roundDecimal(ism / max * 100, 0))}%';
 	}
 
 	function changetext() {
@@ -129,31 +133,37 @@ class Cache extends MusicBeatState
 	}
 
 	function cachethem() {
-
-        for (i in assets.keys()) {
-			max = getAnumbaNine(0);
-            FlxGraphic.defaultPersist = true;
-			whatisloading = 'Image Assets';
-            switch(assets[i]) {
-                case Preloadtype.image:
-                    FlxG.bitmap.add(Paths.image(i, 'CJ'));
-					ism += 1;
-            }
 			whatisloading = 'Characters';
 			max = getAnumbaNine(1);
 			ism = 0;
-			for (e in characterlist)
+
+
+			for (i in images)
 				{
-					FlxG.bitmap.add(Paths.image("characters/" + e, "shared"));
-					var aaa:FlxSprite;
-					aaa = new FlxSprite().loadGraphic(Paths.image("characters/" + e, "shared"));
-					aaa.antialiasing = true;
-					aaa.alpha = 0.0001;
-					add(aaa);
-					ism += 1;
+					var replaced = i.replace(".png","");
+					var data:BitmapData = BitmapData.fromFile("assets/shared/images/characters/" + i);
+					var graph = FlxGraphic.fromBitmapData(data);
+					graph.persist = true;
+					graph.destroyOnNoUse = false;
+					graphicassets.set(replaced,graph);
 				}
-            FlxGraphic.defaultPersist = false;
-        }
+
+			for (i in images2)
+				{
+					var replaced = i.replace(".png","");
+					var data:BitmapData = BitmapData.fromFile("assets/CJ/images/" + i);
+					var graph = FlxGraphic.fromBitmapData(data);
+					graph.persist = true;
+					graph.destroyOnNoUse = false;
+					graphicassets.set(replaced,graph);
+				}
+
+			for (i in music)
+				{
+					FlxG.sound.cache(Paths.inst(i));
+					FlxG.sound.cache(Paths.voices(i));
+				}
+        
 
         FlxG.switchState(new TitleState());
 

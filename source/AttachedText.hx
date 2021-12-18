@@ -14,6 +14,7 @@ class AttachedText extends Alphabet
 		isMenuItem = false;
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
+		color = 0xFF00deff;
 	}
 
 	override function update(elapsed:Float) {

@@ -25,6 +25,7 @@ class Alphabet extends FlxSpriteGroup
 	public var xAdd:Float = 0;
 	public var yAdd:Float = 0;
 	public var isMenuItem:Bool = false;
+	public var isFree:Bool = false;
 	public var textSize:Float = 1.0;
 
 	public var text:String = "";
@@ -185,6 +186,19 @@ class Alphabet extends FlxSpriteGroup
 
 			// loopNum += 1;
 		}
+
+		if (isFree)
+			{
+				var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
+
+				var lerpVal:Float = CoolUtil.boundTo(1 * 9.6, 0, 1);
+				y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd, lerpVal);
+				screenCenter(X);
+				x -= 50;
+			}
+
+			if (text == 'UI' || text == 'NOTES' || text == 'GAMEPLAY'|| text == 'GRAPHICS')
+				alpha = 0;
 	}
 
 	function doSplitWords():Void
@@ -343,6 +357,16 @@ class Alphabet extends FlxSpriteGroup
 				x = FlxMath.lerp(x, (targetY * 20) + 90 + xAdd, lerpVal);
 			}
 		}
+
+		if (isFree)
+			{
+				var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
+
+				var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
+				y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd, lerpVal);
+				screenCenter(X);
+				x -= 50;
+			}
 
 		super.update(elapsed);
 	}

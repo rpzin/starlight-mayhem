@@ -58,13 +58,68 @@
 		{
 			"loop": false,
 			"offsets": [
+				-7,
+				-20
+			],
+			"fps": 24,
+			"anim": "idle2",
+			"indices": [],
+			"name": "altABELIDLE"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				14
+			],
+			"fps": 24,
+			"anim": "singUP2",
+			"indices": [],
+			"name": "altABELUP"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				12,
+				-16
+			],
+			"fps": 24,
+			"anim": "singLEFT2",
+			"indices": [],
+			"name": "altABELLEFT"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-1,
+				-28
+			],
+			"fps": 24,
+			"anim": "singRIGHT2",
+			"indices": [],
+			"name": "altABELRIGHT"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				-30
+			],
+			"fps": 24,
+			"anim": "singDOWN2",
+			"indices": [],
+			"name": "altABELDOWN"
+		},
+		{
+			"loop": false,
+			"offsets": [
 				-110,
 				60
 			],
 			"fps": 24,
-			"anim": "Noguitar",
+			"anim": "Noguitar2",
 			"indices": [],
-			"name": "ABLENOGUITAR"
+			"name": "altABLENOGUITAR"
 		}
 	],
 	"no_antialiasing": false,

@@ -32,32 +32,109 @@ using StringTools;
 class OptionsState extends MusicBeatState
 {
 	var options:Array<String> = ['Notes', 'Controls', 'Preferences'];
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var grpOptions:FlxTypedGroup<FlxText>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
-
+	public static var star1:FlxSprite;
+	public static var star2:FlxSprite;
+	public static var black:FlxSprite;
+	public static var title:FlxSprite;
+	public static var left:FlxSprite;
+	public static var right:FlxSprite;
 	override function create() {
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
-		menuBG = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		menuBG.color = 0xFFea71fd;
-		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
+		menuBG = new FlxSprite().loadGraphic(Paths.image('1280x720 optionsMenu/Layer 1'));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
 		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(menuBG);
 
-		grpOptions = new FlxTypedGroup<Alphabet>();
+		black = new FlxSprite().loadGraphic(Paths.image('1280x720 optionsMenu/blackBar'));
+		black.updateHitbox();
+		black.screenCenter();
+		black.x -= 41;
+		black.y -= 187;
+		black.antialiasing = ClientPrefs.globalAntialiasing;
+		add(black);
+
+		title = new FlxSprite().loadGraphic(Paths.image('1280x720 optionsMenu/optionsTitle'));
+		title.updateHitbox();
+		title.screenCenter();
+		title.y -= 235;
+		title.x -= 52;
+		title.antialiasing = ClientPrefs.globalAntialiasing;
+		add(title);
+
+		FlxG.camera.zoom = 3;
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 1.1, {ease: FlxEase.expoInOut});
+
+		title.x -= 1000;
+		FlxTween.tween(title, {x: title.x +1000}, 0.9, {startDelay: 0.6,
+			ease: FlxEase.expoOut});
+
+		black.x -= 1000;
+		FlxTween.tween(black, {x: black.x +1000}, 0.9, {startDelay: 0.6,
+			ease: FlxEase.expoOut});
+
+		left = new FlxSprite().loadGraphic(Paths.image('1280x720 optionsMenu/optionsLeftPanel'));
+		left.updateHitbox();
+		left.antialiasing = ClientPrefs.globalAntialiasing;
+		add(left);
+
+		left.x -= left.width;
+		FlxTween.tween(left, {x: left.x +left.width}, 0.8, {startDelay: 0.6,
+			ease: FlxEase.expoOut});
+
+		right = new FlxSprite().loadGraphic(Paths.image('1280x720 optionsMenu/optionsRightPanel'));
+		right.updateHitbox();
+		right.x += 1280 - right.width;
+		right.antialiasing = ClientPrefs.globalAntialiasing;
+		add(right);
+
+		right.x += right.width;
+		FlxTween.tween(right, {x: right.x -right.width}, 0.8, {startDelay: 0.6,
+			ease: FlxEase.expoOut});
+
+		star2 = new FlxSprite().loadGraphic(Paths.image('1280x720 optionsMenu/starsRight'));
+		star2.updateHitbox();
+		star2.screenCenter();
+		star2.x += 334;
+		star2.y += 5;
+		star2.antialiasing = ClientPrefs.globalAntialiasing;
+		add(star2);
+
+		star2.y += 1000;
+		FlxTween.tween(star2, {y: star2.y-1000}, 0.8, {startDelay: 0.9,
+			ease: FlxEase.expoOut});
+
+		star1 = new FlxSprite().loadGraphic(Paths.image('1280x720 optionsMenu/starsLeft'));
+		star1.updateHitbox();
+		star1.screenCenter();
+		star1.x -= 316;
+		star1.antialiasing = ClientPrefs.globalAntialiasing;
+		add(star1);
+
+		star1.y -= 1000;
+		FlxTween.tween(star1, {y: star1.y+1000}, 0.8, {startDelay: 0.9,
+			ease: FlxEase.expoOut});
+
+
+		grpOptions = new FlxTypedGroup<FlxText>();
 		add(grpOptions);
 
 		for (i in 0...options.length)
 		{
-			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
-			optionText.screenCenter();
-			optionText.y += (100 * (i - (options.length / 2))) + 50;
-			grpOptions.add(optionText);
+			var text:FlxText;
+			text = new FlxText(0, 0, FlxG.width,options[i],32);
+			text.setFormat("Blank River", 96, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.y += (100 * (i - (options.length / 2))) + 50;
+			text.y += 400;
+			text.borderSize = 5;
+			add(text);
+			grpOptions.add(text);
 		}
 		changeSelection();
 
@@ -112,7 +189,17 @@ class OptionsState extends MusicBeatState
 
 		var bullShit:Int = 0;
 
-		for (item in grpOptions.members) {
+		for (i in 0...options.length)
+			{
+				grpOptions.members[i].alpha = 0.6;
+				grpOptions.members[curSelected].alpha = 1;
+				grpOptions.members[i].setFormat("Blank River", 96, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				grpOptions.members[curSelected].setFormat("Blank River", 96, 0xFF00deff, CENTER, FlxTextBorderStyle.OUTLINE, 0xFF3d038a);
+				grpOptions.members[i].borderSize = 5;
+				grpOptions.members[curSelected].borderSize = 5;
+			}
+
+		/*for (item in grpOptions.members) {
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
@@ -120,7 +207,7 @@ class OptionsState extends MusicBeatState
 			if (item.targetY == 0) {
 				item.alpha = 1;
 			}
-		}
+		}*/
 	}
 }
 
@@ -419,7 +506,27 @@ class ControlsSubstate extends MusicBeatSubstate {
 		['Pause', 'pause'],
 	];
 
+	var optionShit2:Array<Dynamic> = [
+		[''],
+		['Left', 'note_left'],
+		['Down', 'note_down'],
+		['Up', 'note_up'],
+		['Right', 'note_right'],
+		[''],
+		[''],
+		['Left', 'ui_left'],
+		['Down', 'ui_down'],
+		['Up', 'ui_up'],
+		['Right', 'ui_right'],
+		[''],
+		['Reset', 'reset'],
+		['Accept', 'accept'],
+		['Back', 'back'],
+		['Pause', 'pause'],
+	];
+
 	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var grptxt:FlxTypedGroup<FlxText>;
 	private var grpInputs:Array<AttachedText> = [];
 	private var grpInputsAlt:Array<AttachedText> = [];
 	private var controlMap:Map<String, Dynamic>;
@@ -430,6 +537,9 @@ class ControlsSubstate extends MusicBeatSubstate {
 		super();
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
+
+		grptxt = new FlxTypedGroup<FlxText>();
+		add(grptxt);
 
 		controlMap = ClientPrefs.keyBinds.copy();
 		optionShit.push(['']);
@@ -442,12 +552,14 @@ class ControlsSubstate extends MusicBeatSubstate {
 				isCentered = true;
 			}
 
-			var optionText:Alphabet = new Alphabet(0, (10 * i), optionShit[i][0], (!isCentered || isDefaultKey), false);
+			var optionText:Alphabet = new Alphabet(0, (20 * i), optionShit[i][0], (!isCentered || isDefaultKey), false);
 			optionText.isMenuItem = true;
 			if(isCentered) {
 				optionText.screenCenter(X);
-				optionText.forceX = optionText.x;
+				optionText.forceX = optionText.x + 5;
 				optionText.yAdd = -55;
+				if (optionShit[i][0] == defaultKey)
+					optionText.forceX = optionText.x + 400;
 			} else {
 				optionText.forceX = 200;
 			}
@@ -460,6 +572,12 @@ class ControlsSubstate extends MusicBeatSubstate {
 				bindLength++;
 				if(curSelected < 0) curSelected = i;
 			}
+
+			var text:FlxText;
+			text = new FlxText(0, 0, FlxG.width,optionShit[i][0],32);
+			text.setFormat("Blank River", 80, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.borderSize = 5;
+			grptxt.add(text);
 		}
 		changeSelection();
 	}
@@ -467,6 +585,13 @@ class ControlsSubstate extends MusicBeatSubstate {
 	var leaving:Bool = false;
 	var bindingTime:Float = 0;
 	override function update(elapsed:Float) {
+		for (i in 0...optionShit.length) {
+			grptxt.members[i].x = grpOptions.members[i].x - 570;
+			grptxt.members[i].y = grpOptions.members[i].y - 20;
+			grptxt.members[6].x -= 5;
+			grptxt.members[0].y += 2;
+			grptxt.members[6].y += 2;
+		}
 		if(!rebindingKey) {
 			if (controls.UI_UP_P) {
 				changeSelection(-1);
@@ -538,6 +663,7 @@ class ControlsSubstate extends MusicBeatSubstate {
 		if(nextAccept > 0) {
 			nextAccept -= 1;
 		}
+
 		super.update(elapsed);
 	}
 
@@ -574,9 +700,9 @@ class ControlsSubstate extends MusicBeatSubstate {
 			bullShit++;
 
 			if(!unselectableCheck(bullShit-1)) {
-				item.alpha = 0.6;
+				item.alpha = 0;
 				if (item.targetY == 0) {
-					item.alpha = 1;
+					item.alpha = 0;
 					if(curAlt) {
 						for (i in 0...grpInputsAlt.length) {
 							if(grpInputsAlt[i].sprTracker == item) {
@@ -595,6 +721,18 @@ class ControlsSubstate extends MusicBeatSubstate {
 				}
 			}
 		}
+		for (i in 0...optionShit.length)
+			{
+				grptxt.members[i].alpha = 0.6;
+				grptxt.members[curSelected].alpha = 1;
+				grptxt.members[i].setFormat("Blank River", 96, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				grptxt.members[curSelected].setFormat("Blank River", 96, 0xFF00deff, CENTER, FlxTextBorderStyle.OUTLINE, 0xFF3d038a);
+				grptxt.members[i].borderSize = 5;
+				grptxt.members[curSelected].borderSize = 5;
+
+				grptxt.members[0].alpha = 1;
+				grptxt.members[6].alpha = 1;
+			}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 
@@ -629,7 +767,7 @@ class ControlsSubstate extends MusicBeatSubstate {
 	}
 
 	private function addBindTexts(optionText:Alphabet, num:Int) {
-		var keys:Array<Dynamic> = controlMap.get(optionShit[num][1]);
+		var keys:Array<Dynamic> = controlMap.get(optionShit2[num][1]);
 		var text1 = new AttachedText(InputFormatter.getKeyName(keys[0]), 400, -55);
 		text1.setPosition(optionText.x + 400, optionText.y - 55);
 		text1.sprTracker = optionText;
@@ -677,9 +815,9 @@ class ControlsSubstate extends MusicBeatSubstate {
 			bullShit++;
 
 			if(!unselectableCheck(bullShit-1)) {
-				item.alpha = 0.6;
+				item.alpha = 0;
 				if (item.targetY == 0) {
-					item.alpha = 1;
+					item.alpha = 0;
 					if(curAlt) {
 						for (i in 0...grpInputsAlt.length) {
 							if(grpInputsAlt[i].sprTracker == item) {
@@ -739,9 +877,11 @@ class PreferencesSubstate extends MusicBeatSubstate
 		#if !mobile
 		,'FPS Counter'
 		#end
+		,'Old Voices'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var grptxt:FlxTypedGroup<FlxText>;
 	private var checkboxArray:Array<CheckboxThingie> = [];
 	private var checkboxNumber:Array<Int> = [];
 	private var grpTexts:FlxTypedGroup<AttachedText>;
@@ -766,6 +906,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 		grpTexts = new FlxTypedGroup<AttachedText>();
 		add(grpTexts);
+
+		grptxt = new FlxTypedGroup<FlxText>();
+		add(grptxt);
 
 		for (i in 0...options.length)
 		{
@@ -805,6 +948,12 @@ class PreferencesSubstate extends MusicBeatSubstate
 					textNumber.push(i);
 				}
 			}
+
+			var text:FlxText;
+			text = new FlxText(0, 0, FlxG.width,options[i],32);
+			text.setFormat("Blank River", 80, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.borderSize = 5;
+			grptxt.add(text);
 		}
 
 		descText = new FlxText(50, 600, 1180, "", 32);
@@ -827,6 +976,22 @@ class PreferencesSubstate extends MusicBeatSubstate
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
+
+		for (i in 0...options.length) {
+			grptxt.members[i].x = grpOptions.members[i].x - 480;
+			grptxt.members[i].y = grpOptions.members[i].y + 30;
+			grptxt.members[2].x += 2;
+			grptxt.members[3].x += 12;
+			grptxt.members[8].x += 5;
+			grptxt.members[7].x += 2;
+			grptxt.members[10].x += 10;
+			grptxt.members[12].x += 25;
+			grptxt.members[13].x += 8;
+			grptxt.members[15].x += 24;
+			grptxt.members[16].x +=20;
+			grptxt.members[17].x +=16;
+			grptxt.members[18].x +=13;
+		}
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
@@ -926,6 +1091,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 					
 					case 'Hide Song Length':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
+					case 'Old Voices':
+							ClientPrefs.oldvoice = !ClientPrefs.oldvoice;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
@@ -1035,6 +1202,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If checked, hides most HUD elements.";
 			case 'Hide Song Length':
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
+			case 'Old Voices':
+				daText = "If checked, the main week will have the old voices for cj";
 		}
 		descText.text = daText;
 
@@ -1045,15 +1214,15 @@ class PreferencesSubstate extends MusicBeatSubstate
 			bullShit++;
 
 			if(!unselectableCheck(bullShit-1)) {
-				item.alpha = 0.6;
+				item.alpha = 0;
 				if (item.targetY == 0) {
-					item.alpha = 1;
+					item.alpha = 0;
 				}
 
 				for (j in 0...checkboxArray.length) {
 					var tracker:FlxSprite = checkboxArray[j].sprTracker;
 					if(tracker == item) {
-						checkboxArray[j].alpha = item.alpha;
+						checkboxArray[j].alpha = 1;
 						break;
 					}
 				}
@@ -1068,6 +1237,16 @@ class PreferencesSubstate extends MusicBeatSubstate
 				}
 			}
 		}
+
+		for (i in 0...options.length)
+			{
+				grptxt.members[i].alpha = 0.6;
+				grptxt.members[curSelected].alpha = 1;
+				grptxt.members[i].setFormat("Blank River", 96, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				grptxt.members[curSelected].setFormat("Blank River", 96, 0xFF00deff, CENTER, FlxTextBorderStyle.OUTLINE, 0xFF3d038a);
+				grptxt.members[i].borderSize = 5;
+				grptxt.members[curSelected].borderSize = 5;
+			}
 
 		showCharacter.visible = (options[curSelected] == 'Anti-Aliasing');
 		FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -1109,6 +1288,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.imagesPersist;
 					case 'Hide Song Length':
 						daValue = ClientPrefs.hideTime;
+						case 'Old Voices':
+							daValue = ClientPrefs.oldvoice;
 				}
 				checkbox.daValue = daValue;
 			}

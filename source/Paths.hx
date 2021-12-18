@@ -188,7 +188,15 @@ class Paths
 			return file;
 		}
 		#end
-		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Voices.$SOUND_EXT';
+		var songName:String = Paths.formatToSongPath(song);
+		var thingy:String = '';
+		switch (songName)
+		{
+			case 'inverted-ascension' | 'echoes' | 'artificial-lust':
+				if (ClientPrefs.oldvoice)
+					thingy = '-old';
+		}
+		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-') + thingy}/Voices.$SOUND_EXT';
 	}
 
 	inline static public function inst(song:String):Any
@@ -199,7 +207,15 @@ class Paths
 			return file;
 		}
 		#end
-		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Inst.$SOUND_EXT';
+		var songName:String = Paths.formatToSongPath(song);
+		var thingy:String = '';
+		switch (songName)
+		{
+			case 'inverted-ascension' | 'echoes' | 'artificial-lust':
+				if (ClientPrefs.oldvoice)
+					thingy = '-old';
+		}
+		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-') + thingy}/Inst.$SOUND_EXT';
 	}
 
 	#if MODS_ALLOWED

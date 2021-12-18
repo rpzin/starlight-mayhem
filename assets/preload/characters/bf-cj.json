@@ -1,0 +1,221 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				-5,
+				380
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "cj idle dance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				177,
+				389
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "cj Sing Note RIGHT0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				152,
+				362
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "cj Sing Note DOWN0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-8,
+				414
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "cj Sing Note UP0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				176,
+				419
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "cj Sing Note LEFT0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				184,
+				1183
+			],
+			"anim": "singLEFTmiss",
+			"fps": 24,
+			"name": "cj miss right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				147,
+				363
+			],
+			"anim": "singDOWNmiss",
+			"fps": 24,
+			"name": "cj miss down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-10,
+				527
+			],
+			"anim": "singUPmiss",
+			"fps": 24,
+			"name": "cj miss up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				175,
+				596
+			],
+			"anim": "singRIGHTmiss",
+			"fps": 24,
+			"name": "cj miss left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-3,
+				25
+			],
+			"anim": "hey",
+			"fps": 24,
+			"name": "BF HEY",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				15,
+				18
+			],
+			"anim": "hurt",
+			"fps": 24,
+			"name": "BF hit",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				-4,
+				0
+			],
+			"anim": "scared",
+			"fps": 24,
+			"name": "BF idle shaking",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				65,
+				1035
+			],
+			"anim": "firstDeath",
+			"fps": 24,
+			"name": "1Cj fucking dies",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				58,
+				245
+			],
+			"anim": "deathLoop",
+			"fps": 24,
+			"name": "2Cj fucking dies loop",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				58,
+				245
+			],
+			"anim": "deathConfirm",
+			"fps": 24,
+			"name": "3Cj fucking dies confirm",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-10,
+				44
+			],
+			"anim": "dodge",
+			"fps": 24,
+			"name": "boyfriend dodge",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				294,
+				267
+			],
+			"anim": "attack",
+			"fps": 24,
+			"name": "boyfriend attack",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-40,
+				-40
+			],
+			"anim": "pre-attack",
+			"fps": 24,
+			"name": "bf pre attack",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/new/playable_CJ",
+	"position": [
+		10,
+		370
+	],
+	"healthicon": "cj",
+	"flip_x": false,
+	"healthbar_colors": [
+		49,
+		176,
+		209
+	],
+	"camera_position": [
+		370,
+		-560
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

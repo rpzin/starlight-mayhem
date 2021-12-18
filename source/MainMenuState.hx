@@ -31,6 +31,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	var menustuff:FlxTypedGroup<FlxSprite>;
 	var menustuff2:FlxTypedGroup<FlxSprite>;
+	var textgrp:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
@@ -44,6 +45,15 @@ class MainMenuState extends MusicBeatState
 	var star1:FlxSprite;
 	var star2:FlxSprite;
 	var bg:FlxSprite;
+
+	var aaa1:FlxTween;
+	var aaa2:FlxTween;
+	var aaa3:FlxTween;
+	var aaa4:FlxTween;
+	var aaa5:FlxTween;
+	var aaa6:FlxTween;
+	var aaa7:FlxTween;
+	var aaa8:FlxTween;
 
 	override function create()
 	{
@@ -64,6 +74,9 @@ class MainMenuState extends MusicBeatState
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
+
+		FlxG.camera.zoom = 3;
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 1.1, {ease: FlxEase.expoInOut});
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 
@@ -97,47 +110,50 @@ class MainMenuState extends MusicBeatState
 		FlxTween.tween(star1, {y: star1.y+ 1000}, 2.5, {
 			ease: FlxEase.expoOut});
 
+		textgrp = new FlxTypedGroup<FlxSprite>();
+		add(textgrp);
+
 		var black1:FlxSprite = new FlxSprite(1080).loadGraphic(Paths.image('1280x720 selectMenu/starlightBlack1'));
 		black1.scrollFactor.set(0, 0);
 		black1.updateHitbox();
 		black1.screenCenter(Y);
 		black1.antialiasing = true;
-		add(black1);
+		textgrp.add(black1);
 
 		var black2:FlxSprite = new FlxSprite(1143).loadGraphic(Paths.image('1280x720 selectMenu/starlightBlack2'));
 		black2.scrollFactor.set(0, 0);
 		black2.updateHitbox();
 		black2.screenCenter(Y);
 		black2.antialiasing = true;
-		add(black2);
+		textgrp.add(black2);
 
 		var black3:FlxSprite = new FlxSprite(1205).loadGraphic(Paths.image('1280x720 selectMenu/starlightBlack3'));
 		black3.scrollFactor.set(0, 0);
 		black3.updateHitbox();
 		black3.screenCenter(Y);
 		black3.antialiasing = true;
-		add(black3);
+		textgrp.add(black3);
 
 		var text1:FlxSprite = new FlxSprite(1070).loadGraphic(Paths.image('1280x720 selectMenu/starlightBlue1'));
 		text1.scrollFactor.set(0, 0);
 		text1.updateHitbox();
 		text1.screenCenter(Y);
 		text1.antialiasing = true;
-		add(text1);
+		textgrp.add(text1);
 
 		var text2:FlxSprite = new FlxSprite(1141).loadGraphic(Paths.image('1280x720 selectMenu/starlightBlue2'));
 		text2.scrollFactor.set(0, 0);
 		text2.updateHitbox();
 		text2.screenCenter(Y);
 		text2.antialiasing = true;
-		add(text2);
+		textgrp.add(text2);
 
 		var text3:FlxSprite = new FlxSprite(1202).loadGraphic(Paths.image('1280x720 selectMenu/starlightBlue2'));
 		text3.scrollFactor.set(0, 0);
 		text3.updateHitbox();
 		text3.screenCenter(Y);
 		text3.antialiasing = true;
-		add(text3);
+		textgrp.add(text3);
 
 		text1.x += 300;
 		FlxTween.tween(text1, {x: text1.x -300}, 2, {startDelay: 0.1,
@@ -162,6 +178,7 @@ class MainMenuState extends MusicBeatState
 			{
 				funnyfloat();
 				funnyfloat2();
+				trace('aaaaa');
 			}
 		});
 
@@ -288,21 +305,27 @@ class MainMenuState extends MusicBeatState
 	var selectedSomethin:Bool = false;
 
 	function funnyfloat() {
-		FlxTween.tween(star1, {y: star1.y + 20}, 3, {ease: FlxEase.quadInOut,
+		aaa1 = FlxTween.tween(star1, {y: star1.y + 20}, 3, {ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween)
 			{
-				FlxTween.tween(star1, {y: star1.y - 20}, 3, {ease: FlxEase.quadInOut,
-					onComplete: function(twn:FlxTween)
+				new FlxTimer().start(0.1, function(tmr:FlxTimer)
 					{
-						funnyfloat();
-					}
-				});
+						aaa2 = FlxTween.tween(star1, {y: star1.y - 20}, 3, {ease: FlxEase.quadInOut,
+							onComplete: function(twn:FlxTween)
+							{
+								new FlxTimer().start(0.1, function(tmr:FlxTimer)
+									{
+										funnyfloat();
+									});
+							}
+						});
+					});
 			}
 		});
-		FlxTween.tween(star2, {y: star2.y - 20}, 3, {ease: FlxEase.quadInOut,
+		aaa3 = FlxTween.tween(star2, {y: star2.y - 20}, 3, {ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween)
 			{
-				FlxTween.tween(star2, {y: star2.y + 20}, 3, {ease: FlxEase.quadInOut,
+				aaa4 = FlxTween.tween(star2, {y: star2.y + 20}, 3, {ease: FlxEase.quadInOut,
 					onComplete: function(twn:FlxTween)
 					{
 						//funnyfloat();
@@ -315,27 +338,33 @@ class MainMenuState extends MusicBeatState
 	function funnyfloat2() {
 		menustuff.forEach(function(spr:FlxSprite)
 			{
-				FlxTween.tween(spr, {y: spr.y + 10}, 3, {ease: FlxEase.quadInOut,
+				aaa5 = FlxTween.tween(spr, {y: spr.y + 10}, 3, {ease: FlxEase.quadInOut,
 					onComplete: function(twn:FlxTween)
 					{
-						FlxTween.tween(spr, {y: spr.y - 10}, 3, {ease: FlxEase.quadInOut,
-							onComplete: function(twn:FlxTween)
+						new FlxTimer().start(0.1, function(tmr:FlxTimer)
 							{
-								funnyfloat2();
-							}
-						});
+								aaa6 = FlxTween.tween(spr, {y: spr.y - 10}, 3, {ease: FlxEase.quadInOut,
+									onComplete: function(twn:FlxTween)
+									{
+										new FlxTimer().start(0.1, function(tmr:FlxTimer)
+											{
+												funnyfloat2();
+											});
+									}
+								});
+							});
 					}
 				});
 			});
 		menustuff2.forEach(function(spr:FlxSprite)
 			{
-				FlxTween.tween(spr, {y: spr.y + 10}, 3, {ease: FlxEase.quadInOut,
+				aaa7 = FlxTween.tween(spr, {y: spr.y + 10}, 3, {ease: FlxEase.quadInOut,
 					onComplete: function(twn:FlxTween)
 					{
-						FlxTween.tween(spr, {y: spr.y - 10}, 3, {ease: FlxEase.quadInOut,
+						aaa8 = FlxTween.tween(spr, {y: spr.y - 10}, 3, {ease: FlxEase.quadInOut,
 							onComplete: function(twn:FlxTween)
 							{
-								funnyfloat2();
+								//funnyfloat2();
 							}
 						});
 					}
@@ -350,49 +379,16 @@ class MainMenuState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		switch (curSelected)
-		{
-			case 0:
-				menustuff.members[0].alpha = 0;
-				menustuff.members[1].alpha = 1;
-				menustuff.members[2].alpha = 1;
-				menustuff.members[3].alpha = 1;
+		StoryMenuState.stary1 = star1.y;
+		StoryMenuState.stary2 = star2.y;
 
-				menustuff2.members[0].alpha = 1;
-				menustuff2.members[1].alpha = 0;
-				menustuff2.members[2].alpha = 0;
-				menustuff2.members[3].alpha = 0;
-			case 1:
-				menustuff.members[0].alpha = 1;
-				menustuff.members[1].alpha = 0;
-				menustuff.members[2].alpha = 1;
-				menustuff.members[3].alpha = 1;
-
-				menustuff2.members[0].alpha = 0;
-				menustuff2.members[1].alpha = 1;
-				menustuff2.members[2].alpha = 0;
-				menustuff2.members[3].alpha = 0;
-			case 2:
-				menustuff.members[0].alpha = 1;
-				menustuff.members[1].alpha = 1;
-				menustuff.members[2].alpha = 0;
-				menustuff.members[3].alpha = 1;
-
-				menustuff2.members[0].alpha = 0;
-				menustuff2.members[1].alpha = 0;
-				menustuff2.members[2].alpha = 1;
-				menustuff2.members[3].alpha = 0;
-			case 3:
-				menustuff.members[0].alpha = 1;
-				menustuff.members[1].alpha = 1;
-				menustuff.members[2].alpha = 1;
-				menustuff.members[3].alpha = 0;
-
-				menustuff2.members[0].alpha = 0;
-				menustuff2.members[1].alpha = 0;
-				menustuff2.members[2].alpha = 0;
-				menustuff2.members[3].alpha = 1;
-		}
+		for (i in 0...optionShit.length)
+			{
+				menustuff.members[i].alpha = 1;
+				menustuff.members[curSelected].alpha = 0;
+				menustuff2.members[i].alpha = 0;
+				menustuff2.members[curSelected].alpha = 1;
+			}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
@@ -446,8 +442,16 @@ class MainMenuState extends MusicBeatState
 						{
 								var daChoice:String = optionShit[curSelected];
 
-								FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
-								FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+								if (optionShit[curSelected] == 'story')
+									{
+										FlxTransitionableState.skipNextTransIn = true;
+										FlxTransitionableState.skipNextTransOut = true;
+									}
+								if (optionShit[curSelected] != 'story')
+									{
+										FlxTween.tween(FlxG.camera, {zoom: 5}, 1, {ease: FlxEase.expoIn});
+										FlxTween.tween(bg, {angle: 45}, 1, {ease: FlxEase.expoIn});
+									}
 								FlxTween.tween(spr, {x: -600}, 0.6, {
 									ease: FlxEase.backIn,
 									onComplete: function(twn:FlxTween)
@@ -475,13 +479,26 @@ class MainMenuState extends MusicBeatState
 											}
 										});
 									});
+								textgrp.forEach(function(spr2:FlxSprite)
+									{
+										FlxTween.tween(spr2, {x: spr2.x + 600}, 0.6, {
+											ease: FlxEase.backIn,
+											onComplete: function(twn:FlxTween)
+											{
+												spr2.kill();
+											}
+										});
+									});
 
 								new FlxTimer().start(0.4, function(tmr:FlxTimer)
 									{
 										switch (daChoice)
 										{
 											case 'story':
-												MusicBeatState.switchState(new StoryMenuState());
+												new FlxTimer().start(0.5, function(tmr:FlxTimer)
+													{
+														MusicBeatState.switchState(new StoryMenuState());
+													});
 											case 'freeplay':
 												MusicBeatState.switchState(new FreeplayState());
 											case 'awards':
