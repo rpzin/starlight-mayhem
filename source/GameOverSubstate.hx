@@ -20,6 +20,8 @@ class GameOverSubstate extends MusicBeatSubstate
 	var stageSuffix:String = "";
 
 	var lePlayState:PlayState;
+	var camposx:Float = 0;
+	var camposy:Float = 0;
 
 	public static var characterName:String = 'bf';
 	public static var deathSoundName:String = 'fnf_loss_sfx';
@@ -45,7 +47,11 @@ class GameOverSubstate extends MusicBeatSubstate
 		add(bf);
 
 		if (characterName == 'bf-cj')
-			bf.flipX = false;
+			{
+				bf.flipX = false;
+				camposx = 75;
+				camposy = 400;
+			}
 
 		camFollow = new FlxPoint(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y);
 
@@ -72,7 +78,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		lePlayState.callOnLuas('onUpdate', [elapsed]);
 		if(updateCamera) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);
-			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x + camposx, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y- camposy, lerpVal) );
 		}
 
 		if (controls.ACCEPT)

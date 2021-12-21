@@ -41,10 +41,13 @@ class OptionsState extends MusicBeatState
 	public static var title:FlxSprite;
 	public static var left:FlxSprite;
 	public static var right:FlxSprite;
+	public static var here:Bool = false;
 	override function create() {
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
+
+		here = true;
 
 		menuBG = new FlxSprite().loadGraphic(Paths.image('1280x720 optionsMenu/Layer 1'));
 		menuBG.updateHitbox();
@@ -64,7 +67,6 @@ class OptionsState extends MusicBeatState
 		title.updateHitbox();
 		title.screenCenter();
 		title.y -= 235;
-		title.x -= 52;
 		title.antialiasing = ClientPrefs.globalAntialiasing;
 		add(title);
 
@@ -160,6 +162,7 @@ class OptionsState extends MusicBeatState
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
+			here = false;
 		}
 
 		if (controls.ACCEPT) {
@@ -855,6 +858,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 	static var options:Array<String> = [
 		'GRAPHICS',
+		'Old Voices',
 		'Low Quality',
 		'Anti-Aliasing',
 		'Persistent Cached Data',
@@ -877,7 +881,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 		#if !mobile
 		,'FPS Counter'
 		#end
-		,'Old Voices'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -914,7 +917,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		{
 			var isCentered:Bool = unselectableCheck(i);
 			var optionText:Alphabet = new Alphabet(0, 70 * i, options[i], false, false);
-			optionText.isMenuItem = true;
+			optionText.isopt = true;
 			if(isCentered) {
 				optionText.screenCenter(X);
 				optionText.forceX = optionText.x;
@@ -980,17 +983,17 @@ class PreferencesSubstate extends MusicBeatSubstate
 		for (i in 0...options.length) {
 			grptxt.members[i].x = grpOptions.members[i].x - 480;
 			grptxt.members[i].y = grpOptions.members[i].y + 30;
-			grptxt.members[2].x += 2;
-			grptxt.members[3].x += 12;
-			grptxt.members[8].x += 5;
-			grptxt.members[7].x += 2;
-			grptxt.members[10].x += 10;
-			grptxt.members[12].x += 25;
-			grptxt.members[13].x += 8;
-			grptxt.members[15].x += 24;
-			grptxt.members[16].x +=20;
-			grptxt.members[17].x +=16;
-			grptxt.members[18].x +=13;
+			grptxt.members[3].x += 2;
+			grptxt.members[4].x += 12;
+			grptxt.members[9].x += 5;
+			grptxt.members[8].x += 2;
+			grptxt.members[11].x += 10;
+			grptxt.members[13].x += 25;
+			grptxt.members[15].x += 8;
+			grptxt.members[16].x += 24;
+			grptxt.members[17].x +=20;
+			grptxt.members[18].x +=16;
+			grptxt.members[19].x +=13;
 		}
 		if (controls.UI_UP_P)
 		{
@@ -1033,6 +1036,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 		if(usesCheckbox) {
 			if(controls.ACCEPT && nextAccept <= 0) {
 				switch(options[curSelected]) {
+					case 'Old Voices':
+						ClientPrefs.oldvoice = !ClientPrefs.oldvoice;
 					case 'FPS Counter':
 						ClientPrefs.showFPS = !ClientPrefs.showFPS;
 						if(Main.fpsVar != null)
@@ -1091,8 +1096,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 					
 					case 'Hide Song Length':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
-					case 'Old Voices':
-							ClientPrefs.oldvoice = !ClientPrefs.oldvoice;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
@@ -1171,7 +1174,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 			case 'FPS Counter':
 				daText = "If unchecked, hides FPS Counter.";
 			case 'Low Quality':
-				daText = "If checked, disables some background details,\ndecreases loading times and improves performance.";
+				daText = "If checked, disables some background details and events,\ndecreases loading times and improves performance.";
 			case 'Persistent Cached Data':
 				daText = "If checked, images loaded will stay in memory\nuntil the game is closed, this increases memory usage,\nbut basically makes reloading times instant.";
 			case 'Anti-Aliasing':
@@ -1203,7 +1206,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 			case 'Hide Song Length':
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
 			case 'Old Voices':
-				daText = "If checked, the main week will have the old voices for cj";
+				daText = "If checked, the main week will have the old voices for cj\n......and a few other changes.";
 		}
 		descText.text = daText;
 

@@ -1,136 +1,136 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				-47,
 				110
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "idle",
-			"indices": [],
-			"name": "duet idle dance"
+			"fps": 24,
+			"name": "duet idle dance",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-81,
 				153
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singUP",
-			"indices": [],
-			"name": "duet Sing Note UP"
+			"fps": 24,
+			"name": "duet Sing Note UP",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-9,
 				111
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "duet Sing Note LEFT"
+			"fps": 24,
+			"name": "duet Sing Note LEFT",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-2,
 				122
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "duet Sing Note RIGHT"
+			"fps": 24,
+			"name": "duet Sing Note RIGHT",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-29,
 				73
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "duet Sing Note DOWN"
+			"fps": 24,
+			"name": "duet Sing Note DOWN",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-32,
 				58
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "showtime",
-			"indices": [],
-			"name": "duet SHOWTIME"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-46,
-				94
-			],
 			"fps": 24,
-			"anim": "idle2",
-			"indices": [],
-			"name": "altduet idle dance"
+			"name": "duet SHOWTIME",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-62,
-				137
-			],
-			"fps": 24,
-			"anim": "singUP2",
-			"indices": [],
-			"name": "altduet Sing Note UP"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-38,
-				95
-			],
-			"fps": 24,
-			"anim": "singLEFT2",
-			"indices": [],
-			"name": "altduet Sing Note LEFT"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				11,
+				-47,
 				111
 			],
+			"loop": false,
+			"anim": "idle2",
 			"fps": 24,
-			"anim": "singRIGHT2",
-			"indices": [],
-			"name": "altduet Sing Note RIGHT"
+			"name": "altduet idle dance",
+			"indices": []
 		},
 		{
+			"offsets": [
+				-80,
+				154
+			],
 			"loop": false,
+			"anim": "singUP2",
+			"fps": 24,
+			"name": "altduet Sing Note UP",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-9,
+				112
+			],
+			"loop": false,
+			"anim": "singLEFT2",
+			"fps": 24,
+			"name": "altduet Sing Note LEFT",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-1,
+				124
+			],
+			"loop": false,
+			"anim": "singRIGHT2",
+			"fps": 24,
+			"name": "altduet Sing Note RIGHT",
+			"indices": []
+		},
+		{
 			"offsets": [
 				-28,
-				58
+				74
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singDOWN2",
-			"indices": [],
-			"name": "altduet Sing Note DOWN"
+			"fps": 24,
+			"name": "altduet Sing Note DOWN",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-31,
-				34
+				60
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "showtime2",
-			"indices": [],
-			"name": "altduet SHOWTIME"
+			"fps": 24,
+			"name": "altduet SHOWTIME",
+			"indices": []
 		}
 	],
 	"no_antialiasing": true,

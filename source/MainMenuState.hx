@@ -54,6 +54,17 @@ class MainMenuState extends MusicBeatState
 	var aaa6:FlxTween;
 	var aaa7:FlxTween;
 	var aaa8:FlxTween;
+	var canmove:Bool = true;
+	var aa1:FlxTween;
+	var aa2:FlxTween;
+	var aa3:FlxTween;
+	var aa4:FlxTween;
+	var aa5:FlxTween;
+	var aa6:FlxTween;
+	var aa7:FlxTween;
+	var aa8:FlxTween;
+	var aa9:FlxTween;
+	var aa10:FlxTween;
 
 	override function create()
 	{
@@ -105,9 +116,9 @@ class MainMenuState extends MusicBeatState
 		star2.x += 136;
 		add(star2);
 
-		FlxTween.tween(star2, {y: star2.y- 1005}, 2.5, {
+		aa1 = FlxTween.tween(star2, {y: star2.y- 1005}, 2.5, {
 			ease: FlxEase.expoOut});
-		FlxTween.tween(star1, {y: star1.y+ 1000}, 2.5, {
+		aa2 = FlxTween.tween(star1, {y: star1.y+ 1000}, 2.5, {
 			ease: FlxEase.expoOut});
 
 		textgrp = new FlxTypedGroup<FlxSprite>();
@@ -156,29 +167,30 @@ class MainMenuState extends MusicBeatState
 		textgrp.add(text3);
 
 		text1.x += 300;
-		FlxTween.tween(text1, {x: text1.x -300}, 2, {startDelay: 0.1,
+		aa3 = FlxTween.tween(text1, {x: text1.x -300}, 2, {startDelay: 0.1,
 			ease: FlxEase.expoOut});
 		text2.x += 400;
-		FlxTween.tween(text2, {x: text2.x -400}, 2, {startDelay: 0.3,
+		aa4 = FlxTween.tween(text2, {x: text2.x -400}, 2, {startDelay: 0.3,
 			ease: FlxEase.expoOut});
 		text3.x += 500;
-		FlxTween.tween(text3, {x: text3.x -500}, 2, {startDelay: 0.5,
+		aa5 = FlxTween.tween(text3, {x: text3.x -500}, 2, {startDelay: 0.5,
 			ease: FlxEase.expoOut});
 
 		black1.x += 300;
-		FlxTween.tween(black1, {x: black1.x -300}, 2, {startDelay: 0.7,
+		aa6 = FlxTween.tween(black1, {x: black1.x -300}, 2, {startDelay: 0.7,
 			ease: FlxEase.expoOut});
 		black2.x += 400;
-		FlxTween.tween(black2, {x: black2.x -400}, 2, {startDelay: 0.9,
+		aa7 = FlxTween.tween(black2, {x: black2.x -400}, 2, {startDelay: 0.9,
 			ease: FlxEase.expoOut});
 		black3.x += 500;
-		FlxTween.tween(black3, {x: black3.x -500}, 2, {startDelay: 1.1,
+		aa8 = FlxTween.tween(black3, {x: black3.x -500}, 2, {startDelay: 1.1,
 			ease: FlxEase.expoOut,
 			onComplete: function(twn:FlxTween)
 			{
 				funnyfloat();
 				funnyfloat2();
 				trace('aaaaa');
+				canmove = true;
 			}
 		});
 
@@ -239,7 +251,7 @@ class MainMenuState extends MusicBeatState
 						aaa.y -= 30;
 				}
 				aaa.x -= 600;
-				FlxTween.tween(aaa, {x: aaa.x+ 600}, 1.5 + (0.2 * i), {startDelay: 0.1+ (0.3 * i),
+				aa9 = FlxTween.tween(aaa, {x: aaa.x+ 600}, 1.5 + (0.2 * i), {startDelay: 0.1+ (0.3 * i),
 					ease: FlxEase.expoOut});
 				menustuff.add(aaa);
 			}
@@ -259,7 +271,7 @@ class MainMenuState extends MusicBeatState
 						aaa.y -= 30;
 				}
 				aaa.x -= 600;
-				FlxTween.tween(aaa, {x: aaa.x+ 600}, 1.5 + (0.2 * i), {startDelay: 0.1+ (0.3 * i),
+				aa10 = FlxTween.tween(aaa, {x: aaa.x+ 600}, 1.5 + (0.2 * i), {startDelay: 0.1+ (0.3 * i),
 					ease: FlxEase.expoOut});
 				menustuff2.add(aaa);
 			}
@@ -393,7 +405,7 @@ class MainMenuState extends MusicBeatState
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
-		if (!selectedSomethin)
+		if (!selectedSomethin && canmove)
 		{
 			if (controls.UI_UP_P)
 			{
@@ -441,6 +453,46 @@ class MainMenuState extends MusicBeatState
 						else
 						{
 								var daChoice:String = optionShit[curSelected];
+
+								if(aa1 != null) {
+									aa1.cancel();
+								}
+
+								if(aa2 != null) {
+									aa2.cancel();
+								}
+
+								if(aa3 != null) {
+									aa3.cancel();
+								}
+
+								if(aa4 != null) {
+									aa4.cancel();
+								}
+
+								if(aa5 != null) {
+									aa5.cancel();
+								}
+
+								if(aa6 != null) {
+									aa6.cancel();
+								}
+
+								if(aa7 != null) {
+									aa7.cancel();
+								}
+
+								if(aa8 != null) {
+									aa8.cancel();
+								}
+
+								if(aa9 != null) {
+									aa9.cancel();
+								}
+
+								if(aa10 != null) {
+									aa10.cancel();
+								}
 
 								if (optionShit[curSelected] == 'story')
 									{

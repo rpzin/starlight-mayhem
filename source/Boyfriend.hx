@@ -32,6 +32,11 @@ class Boyfriend extends Character
 				playAnim('idle', true, false, 10);
 			}
 
+			if (animation.curAnim.name.startsWith('sing') && animation.curAnim.finished && !debugMode)
+				{
+					playAnim('idle');
+				}
+
 			if (animation.curAnim.name == 'firstDeath' && animation.curAnim.finished && startedDeath)
 			{
 				playAnim('deathLoop');

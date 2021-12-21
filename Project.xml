@@ -68,6 +68,8 @@
 		<library name="shared"        preload="false" />
 		<library name="CJ"         preload="false" />
 	</section>
+	<assets path="assets/videos" exclude="*.mp3" if="web"/>
+	<assets path="assets/videos" exclude="*.ogg" unless="web"/>
 	
 	<assets path="plugins/"             rename=''               if="VIDEOS_ALLOWED windows" />
 	<assets path="dlls/"                rename=''               if="VIDEOS_ALLOWED windows" />

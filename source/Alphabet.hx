@@ -25,6 +25,7 @@ class Alphabet extends FlxSpriteGroup
 	public var xAdd:Float = 0;
 	public var yAdd:Float = 0;
 	public var isMenuItem:Bool = false;
+	public var isopt:Bool = false;
 	public var isFree:Bool = false;
 	public var textSize:Float = 1.0;
 
@@ -145,7 +146,7 @@ class Alphabet extends FlxSpriteGroup
 				consecutiveSpaces = 0;
 
 				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0, textSize);
-				var letter:AlphaCharacter = new AlphaCharacter(xPos, 0, textSize);
+				var letter:AlphaCharacter = new AlphaCharacter(xPos, 0, textSize,isBold);
 
 				if (isBold)
 				{
@@ -187,15 +188,15 @@ class Alphabet extends FlxSpriteGroup
 			// loopNum += 1;
 		}
 
-		if (isFree)
-			{
-				var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
+			if (isFree)
+				{
+					var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 
-				var lerpVal:Float = CoolUtil.boundTo(1 * 9.6, 0, 1);
-				y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd, lerpVal);
-				screenCenter(X);
-				x -= 50;
-			}
+					var lerpVal:Float = CoolUtil.boundTo(1 * 9.6, 0, 1);
+					y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd,0.04);
+					screenCenter(X);
+					x -= 50;
+				}
 
 			if (text == 'UI' || text == 'NOTES' || text == 'GAMEPLAY'|| text == 'GRAPHICS')
 				alpha = 0;
@@ -287,7 +288,7 @@ class Alphabet extends FlxSpriteGroup
 				consecutiveSpaces = 0;
 
 				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0, textSize);
-				var letter:AlphaCharacter = new AlphaCharacter(xPos, 55 * yMulti, textSize);
+				var letter:AlphaCharacter = new AlphaCharacter(xPos, 55 * yMulti, textSize,isBold);
 				letter.row = curRow;
 				if (isBold)
 				{
@@ -358,6 +359,19 @@ class Alphabet extends FlxSpriteGroup
 			}
 		}
 
+		if (isopt)
+			{
+				var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
+	
+				var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
+				y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd - 60, lerpVal);
+				if(forceX != Math.NEGATIVE_INFINITY) {
+					x = forceX;
+				} else {
+					x = FlxMath.lerp(x, (targetY * 20) + 90 + xAdd, lerpVal);
+				}
+			}
+
 		if (isFree)
 			{
 				var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
@@ -392,10 +406,18 @@ class AlphaCharacter extends FlxSprite
 
 	private var textSize:Float = 1;
 
-	public function new(x:Float, y:Float, textSize:Float)
+	public var isbold:Bool = true;
+
+	public function new(x:Float, y:Float, textSize:Float,?bold = false)
 	{
 		super(x, y);
-		var tex = Paths.getSparrowAtlas('alphabet');
+		isbold = bold;
+		var tex;
+		//trace(OptionsState.here + 'loll');
+		var aaa:String = '';
+		if (OptionsState.here)
+			aaa = '2';
+		var tex = Paths.getSparrowAtlas('alphabet' + aaa);
 		frames = tex;
 
 		setGraphicSize(Std.int(width * textSize));

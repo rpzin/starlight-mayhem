@@ -1,6 +1,6 @@
 {
 	"storyName": "Zamn",
-	"hideFreeplay": false,
+	"hideFreeplay": true,
 	"weekBackground": "stage",
 	"weekBefore": "tutorial",
 	"freeplayColor": [

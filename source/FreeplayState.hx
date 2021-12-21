@@ -40,6 +40,7 @@ class FreeplayState extends MusicBeatState
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
+	var haventselected:Bool =true;
 
 	private var iconArray:Array<HealthIcon> = [];
 
@@ -82,8 +83,10 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 		WeekData.setDirectoryFromWeek();
+		var randostr:String = '';
+		randostr = 'freeplaySonglist';
 
-		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
+		var initSonglist = CoolUtil.coolTextFile(Paths.txt(randostr));
 		for (i in 0...initSonglist.length)
 		{
 			if(initSonglist[i] != null && initSonglist[i].length > 0) {
@@ -228,23 +231,24 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 			{
+				trace(i);
 				songspr.members[i].alpha = 0.6;
 				songspr.members[curSelected].alpha = 0;
 				songsprselected.members[i].alpha = 0;
 				songsprselected.members[curSelected].alpha = 1;
-				songspr.members[i].x = grpSongs.members[i].x;
+				songspr.members[i].x = grpSongs.members[i].x + 500;
 				songspr.members[i].y = grpSongs.members[i].y;
-				songsprselected.members[i].x = grpSongs.members[i].x;
+				songsprselected.members[i].x = grpSongs.members[i].x + 500;
 				songsprselected.members[i].y = grpSongs.members[i].y;
 
 				songsprselected.members[1].x += 25;
 				songsprselected.members[3].x += 25;
+				songspr.members[1].x += 25;
+				songspr.members[3].x += 25;
 				songsprselected.members[4].x += 10;
 				songsprselected.members[5].x += 10;
 				songsprselected.members[7].x += 115;
 
-				songspr.members[1].x += 25;
-				songspr.members[3].x += 25;
 				songspr.members[4].x += 10;
 				songspr.members[5].x += 10;
 				songspr.members[7].x += 115;
@@ -270,6 +274,15 @@ class FreeplayState extends MusicBeatState
 					arrow.x += 180;
 				case 7:
 					arrow.x += 230;
+			}
+
+		if (!ClientPrefs.mainweek)
+			{
+				for (i in 4...8)
+					{
+						songsprselected.members[i].alpha = 0;
+						songspr.members[i].alpha = 0;
+					}
 			}
 		
 		super.create();
@@ -318,17 +331,26 @@ class FreeplayState extends MusicBeatState
 
 				songsprselected.members[1].x += 25;
 				songsprselected.members[3].x += 25;
+				songspr.members[1].x += 25;
+				songspr.members[3].x += 25;
 				songsprselected.members[4].x += 10;
 				songsprselected.members[5].x += 10;
 				songsprselected.members[7].x += 115;
 
-				songspr.members[1].x += 25;
-				songspr.members[3].x += 25;
 				songspr.members[4].x += 10;
 				songspr.members[5].x += 10;
 				songspr.members[7].x += 115;
 			}
-		if (FlxG.sound.music.volume < 0.7)
+			if (!ClientPrefs.mainweek)
+				{
+					for (i in 4...8)
+						{
+							songsprselected.members[i].alpha = 0;
+							songspr.members[i].alpha = 0;
+						}
+				}
+
+		if (FlxG.sound.music.volume < 0.7 && haventselected)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
@@ -354,11 +376,23 @@ class FreeplayState extends MusicBeatState
 
 		if (upP)
 		{
-			changeSelection(-shiftMult);
+			if (!ClientPrefs.mainweek)
+				{
+					if (curSelected != 0)
+						changeSelection(-shiftMult);
+				}
+				else
+					changeSelection(-shiftMult);
 		}
 		if (downP)
 		{
-			changeSelection(shiftMult);
+			if (!ClientPrefs.mainweek)
+				{
+					if (curSelected != 3)
+						changeSelection(shiftMult);
+				}
+				else
+					changeSelection(shiftMult);
 		}
 
 		if (controls.UI_LEFT_P)
@@ -403,8 +437,9 @@ class FreeplayState extends MusicBeatState
 			vocals.volume = 0.7;
 			instPlaying = curSelected;
 		}
-		else #end if (accepted)
+		else #end if (accepted && haventselected)
 		{
+			haventselected = false;
 			FlxG.sound.play(Paths.sound('confirmMenu'));
 			FlxTween.tween(FlxG.camera, {zoom: 5}, 1, {ease: FlxEase.expoIn});
 			FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
@@ -442,6 +477,9 @@ class FreeplayState extends MusicBeatState
 				{
 					LoadingState.loadAndSwitchState(new PlayState());
 				});
+			FlxG.sound.music.volume = 0;
+					
+			destroyFreeplayVocals();
 			
 		}
 		else if(controls.RESET)
@@ -521,6 +559,14 @@ class FreeplayState extends MusicBeatState
 		}
 
 		iconArray[curSelected].alpha = 1;
+
+		if (!ClientPrefs.mainweek)
+			{
+				for (i in 4...8)
+					{
+						iconArray[i].alpha = 0;
+					}
+			}
 
 		for (item in grpSongs.members)
 		{

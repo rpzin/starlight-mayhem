@@ -28,6 +28,7 @@ class ClientPrefs {
 	public static var ghostTapping:Bool = true;
 	public static var hideTime:Bool = false;
 	public static var oldvoice:Bool = false;
+	public static var mainweek:Bool = false;
 
 	//Every key has two binds, these binds are defined on defaultKeys! If you want your control to be changeable, you have to add it on ControlsSubState (inside OptionsState.hx)'s list
 	public static var keyBinds:Map<String, Dynamic> = new Map<String, Dynamic>();
@@ -69,16 +70,17 @@ class ClientPrefs {
 		FlxG.save.data.speed = speed;
 		FlxG.save.data.scroll = scroll;
 		FlxG.save.data.noteSize = noteSize;
-		FlxG.save.data.oldvoice = oldvoice;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.arrowHSV = arrowHSV;
+		FlxG.save.data.beatenweek1 = mainweek;
 		FlxG.save.data.imagesPersist = imagesPersist;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.hideTime = hideTime;
 		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
 		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
+		FlxG.save.data.oldvoice = oldvoice;
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
@@ -110,11 +112,14 @@ class ClientPrefs {
 		if(FlxG.save.data.noteSplashes != null) {
 			noteSplashes = FlxG.save.data.noteSplashes;
 		}
-		if(FlxG.save.data.lowQuality != null) {
-			lowQuality = FlxG.save.data.lowQuality;
-		}
 		if(FlxG.save.data.oldvoice != null) {
 			oldvoice = FlxG.save.data.oldvoice;
+		}
+		if(FlxG.save.data.beatenweek1 != null) {
+			mainweek = FlxG.save.data.beatenweek1;
+		}
+		if(FlxG.save.data.lowQuality != null) {
+			lowQuality = FlxG.save.data.lowQuality;
 		}
 		if(FlxG.save.data.framerate != null) {
 			framerate = FlxG.save.data.framerate;

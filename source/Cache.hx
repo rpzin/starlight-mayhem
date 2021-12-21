@@ -47,6 +47,7 @@ class Cache extends MusicBeatState
 
 	var images = [];
 	var images2 = [];
+	var images3 = [];
 	var music = [];
 
 	var whatisloading:String = '';
@@ -91,6 +92,13 @@ class Cache extends MusicBeatState
 				if (!i.endsWith(".png"))
 					continue;
 				images2.push(i);
+			}
+
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/images/1280x720 storyMenu")))
+			{
+				if (!i.endsWith(".png"))
+					continue;
+				images3.push(i);
 			}
 
 		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/songs")))
@@ -141,21 +149,22 @@ class Cache extends MusicBeatState
 			for (i in images)
 				{
 					var replaced = i.replace(".png","");
-					var data:BitmapData = BitmapData.fromFile("assets/shared/images/characters/" + i);
-					var graph = FlxGraphic.fromBitmapData(data);
-					graph.persist = true;
-					graph.destroyOnNoUse = false;
-					graphicassets.set(replaced,graph);
+					trace(replaced);
+					trace(Paths.image('characters/' + replaced,'shared'));
+					FlxG.bitmap.add(Paths.image('characters/' + replaced,'shared'));
 				}
 
 			for (i in images2)
 				{
 					var replaced = i.replace(".png","");
-					var data:BitmapData = BitmapData.fromFile("assets/CJ/images/" + i);
-					var graph = FlxGraphic.fromBitmapData(data);
-					graph.persist = true;
-					graph.destroyOnNoUse = false;
-					graphicassets.set(replaced,graph);
+					FlxG.bitmap.add(Paths.image(replaced,'CJ'));
+				}
+
+			for (i in images3)
+				{
+					var replaced = i.replace(".png","");
+					//trace(replaced);
+					FlxG.bitmap.add(Paths.image('1280x720 storyMenu/' + replaced));
 				}
 
 			for (i in music)
@@ -165,7 +174,11 @@ class Cache extends MusicBeatState
 				}
         
 
-        FlxG.switchState(new TitleState());
+			new FlxTimer().start(1, function(tmr:FlxTimer)
+				{
+					FlxG.switchState(new TitleState());
+				});
+        
 
     }
 

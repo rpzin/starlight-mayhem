@@ -1,92 +1,114 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				3,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "idle",
-			"indices": [],
-			"name": "cj idle dance"
+			"fps": 24,
+			"name": "cj idle dance",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-36,
 				34
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singUP",
-			"indices": [],
-			"name": "cj Sing Note UP"
+			"fps": 24,
+			"name": "cj Sing Note UP",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				27,
 				10
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "cj Sing Note LEFT"
+			"fps": 24,
+			"name": "cj Sing Note LEFT",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-38,
 				39
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "cj Sing Note RIGHT"
+			"fps": 24,
+			"name": "cj Sing Note RIGHT",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-53,
 				-17
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "cj Sing Note DOWN"
+			"fps": 24,
+			"name": "cj Sing Note DOWN",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				592,
 				226
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "INTRO",
-			"indices": [],
-			"name": "cj intro"
+			"fps": 24,
+			"name": "cj intro",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-33,
 				31
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "SINGLE HA",
-			"indices": [],
-			"name": "cj singleha"
+			"fps": 24,
+			"name": "cj haha",
+			"indices": []
 		},
 		{
+			"offsets": [
+				96,
+				-10
+			],
 			"loop": false,
+			"anim": "watch",
+			"fps": 24,
+			"name": "cj watchme",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-11,
+				-12
+			],
+			"loop": false,
+			"anim": "here",
+			"fps": 24,
+			"name": "cj herewego",
+			"indices": []
+		},
+		{
 			"offsets": [
 				-33,
 				31
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "DOUBLE HA",
-			"indices": [],
-			"name": "cj doubleha"
+			"fps": 24,
+			"name": "cj haha",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,

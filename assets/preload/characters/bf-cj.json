@@ -1,202 +1,136 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				-5,
 				380
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "cj idle dance",
-			"indices": []
+			"indices": [],
+			"name": "cj idle dance"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				177,
-				389
+				76,
+				405
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "cj Sing Note RIGHT0",
-			"indices": []
+			"indices": [],
+			"name": "cj Sing Note RIGHT0"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				152,
-				362
+				60,
+				373
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "cj Sing Note DOWN0",
-			"indices": []
+			"indices": [],
+			"name": "cj Sing Note DOWN0"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-8,
-				414
+				1,
+				430
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "cj Sing Note UP0",
-			"indices": []
+			"indices": [],
+			"name": "cj Sing Note UP0"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				176,
-				419
+				101,
+				376
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "cj Sing Note LEFT0",
-			"indices": []
+			"indices": [],
+			"name": "cj Sing Note LEFT0"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				184,
-				1183
+				68,
+				617
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFTmiss",
-			"fps": 24,
-			"name": "cj miss right",
-			"indices": []
+			"indices": [],
+			"name": "cj miss right"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				147,
-				363
+				47,
+				374
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWNmiss",
-			"fps": 24,
-			"name": "cj miss down",
-			"indices": []
+			"indices": [],
+			"name": "cj miss down"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-10,
-				527
+				350,
+				546
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUPmiss",
-			"fps": 24,
-			"name": "cj miss up",
-			"indices": []
+			"indices": [],
+			"name": "cj miss up"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				175,
-				596
+				569,
+				1171
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHTmiss",
-			"fps": 24,
-			"name": "cj miss left",
-			"indices": []
+			"indices": [],
+			"name": "cj miss left"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-3,
-				25
-			],
-			"anim": "hey",
-			"fps": 24,
-			"name": "BF HEY",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				15,
-				18
-			],
-			"anim": "hurt",
-			"fps": 24,
-			"name": "BF hit",
-			"indices": []
-		},
-		{
-			"loop": true,
-			"offsets": [
-				-4,
-				0
-			],
-			"anim": "scared",
-			"fps": 24,
-			"name": "BF idle shaking",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				65,
+				505,
 				1035
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "firstDeath",
-			"fps": 24,
-			"name": "1Cj fucking dies",
-			"indices": []
+			"indices": [],
+			"name": "1Cj fucking dies"
 		},
 		{
+			"offsets": [
+				101,
+				245
+			],
 			"loop": true,
-			"offsets": [
-				58,
-				245
-			],
+			"fps": 24,
 			"anim": "deathLoop",
-			"fps": 24,
-			"name": "2Cj fucking dies loop",
-			"indices": []
+			"indices": [],
+			"name": "3Cj fucking dies loop"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				58,
+				101,
 				245
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "deathConfirm",
-			"fps": 24,
-			"name": "3Cj fucking dies confirm",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-10,
-				44
-			],
-			"anim": "dodge",
-			"fps": 24,
-			"name": "boyfriend dodge",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				294,
-				267
-			],
-			"anim": "attack",
-			"fps": 24,
-			"name": "boyfriend attack",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-40,
-				-40
-			],
-			"anim": "pre-attack",
-			"fps": 24,
-			"name": "bf pre attack",
-			"indices": []
+			"indices": [],
+			"name": "2Cj fucking dies confirm"
 		}
 	],
 	"no_antialiasing": false,
@@ -206,11 +140,11 @@
 		370
 	],
 	"healthicon": "cj",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
-		49,
-		176,
-		209
+		0,
+		76,
+		255
 	],
 	"camera_position": [
 		370,

@@ -3,17 +3,17 @@
 	<!-- Created with Adobe Animate version 21.0.7.42652 -->
 	<!-- http://www.adobe.com/products/animate.html -->
 	<SubTexture name="Olley0000" x="3" y="3" width="271" height="625" frameX="-2" frameY="0" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0001" x="278" y="3" width="273" height="624" frameX="-1" frameY="-1" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0002" x="555" y="3" width="278" height="624" frameX="0" frameY="-1" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0003" x="837" y="3" width="282" height="623" frameX="0" frameY="-2" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0004" x="1123" y="3" width="284" height="623" frameX="0" frameY="-2" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0005" x="1411" y="3" width="283" height="623" frameX="0" frameY="-2" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0006" x="1698" y="3" width="282" height="623" frameX="0" frameY="-2" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0007" x="3" y="632" width="281" height="624" frameX="0" frameY="-1" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0008" x="288" y="632" width="278" height="624" frameX="-1" frameY="-1" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0009" x="570" y="632" width="276" height="623" frameX="-1" frameY="-1" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0010" x="850" y="632" width="274" height="623" frameX="-1" frameY="-1" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0011" x="1128" y="632" width="273" height="624" frameX="-1" frameY="0" frameWidth="284" frameHeight="625"/>
-	<SubTexture name="Olley0012" x="1405" y="632" width="271" height="624" frameX="-2" frameY="0" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0001" x="278" y="3" width="272" height="625" frameX="-1" frameY="0" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0002" x="554" y="3" width="278" height="622" frameX="0" frameY="-3" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0003" x="836" y="3" width="278" height="622" frameX="0" frameY="-3" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0004" x="1118" y="3" width="284" height="618" frameX="0" frameY="-7" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0005" x="1406" y="3" width="284" height="618" frameX="0" frameY="-7" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0006" x="1694" y="3" width="282" height="619" frameX="0" frameY="-5" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0007" x="3" y="632" width="282" height="619" frameX="0" frameY="-5" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0008" x="289" y="632" width="276" height="621" frameX="-1" frameY="-3" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0009" x="569" y="632" width="276" height="621" frameX="-1" frameY="-3" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0010" x="849" y="632" width="271" height="623" frameX="-2" frameY="-1" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0011" x="3" y="3" width="271" height="625" frameX="-2" frameY="0" frameWidth="284" frameHeight="625"/>
+	<SubTexture name="Olley0012" x="3" y="3" width="271" height="625" frameX="-2" frameY="0" frameWidth="284" frameHeight="625"/>
 	<SubTexture name="Olley0013" x="3" y="3" width="271" height="625" frameX="-2" frameY="0" frameWidth="284" frameHeight="625"/>
 </TextureAtlas>

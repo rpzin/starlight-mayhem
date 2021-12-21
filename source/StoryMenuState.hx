@@ -94,7 +94,7 @@ class StoryMenuState extends MusicBeatState
 	override function create()
 	{
 		#if MODS_ALLOWED
-		Paths.destroyLoadedImages();
+		//Paths.destroyLoadedImages();
 		#end
 		WeekData.reloadWeekFiles(true);
 
@@ -438,6 +438,10 @@ class StoryMenuState extends MusicBeatState
 		vadechar.animation.play('idle');
 		vadechar.antialiasing = ClientPrefs.globalAntialiasing;
 		vadechar.scale.set(0.55,0.55);
+		sm.color = FlxColor.WHITE;
+		vadechar.color = FlxColor.WHITE;
+		cjruby.color = FlxColor.WHITE;
+		gf.color = FlxColor.WHITE;
 
 		switch (aaa)
 		{
@@ -452,6 +456,8 @@ class StoryMenuState extends MusicBeatState
 				sm.y = bg4.y - 730;
 				vadechar.x = bg4.x - 100;
 				vadechar.y =bg4.y +20;
+				sm.color = FlxColor.fromHSL(sm.color.hue, sm.color.saturation, sm.color.lightness - 0.80, 1);
+				vadechar.color = FlxColor.fromHSL(vadechar.color.hue, vadechar.color.saturation, vadechar.color.lightness - 0.80, 1);
 			case 1:
 				add(gf);
 				add(cjruby);
@@ -462,6 +468,8 @@ class StoryMenuState extends MusicBeatState
 				cjruby.y =bg4.y -40;
 				sm.x = bg4.x - 350;
 				sm.y = bg4.y - 670;
+				cjruby.color = FlxColor.fromHSL(cjruby.color.hue, cjruby.color.saturation, cjruby.color.lightness - 0.80, 1);
+				gf.color = FlxColor.fromHSL(gf.color.hue,gf.color.saturation, gf.color.lightness - 0.80, 1);
 			case 2:
 				add(vadechar);
 				add(sm);
@@ -472,6 +480,8 @@ class StoryMenuState extends MusicBeatState
 				sm.y = bg4.y - 730;
 				vadechar.x = bg4.x + 200;
 				vadechar.y =bg4.y +20;
+				sm.color = FlxColor.fromHSL(sm.color.hue, sm.color.saturation, sm.color.lightness - 0.80, 1);
+				vadechar.color = FlxColor.fromHSL(vadechar.color.hue, vadechar.color.saturation, vadechar.color.lightness - 0.80, 1);
 			case 3:
 				add(gf);
 				add(cjruby);
@@ -482,7 +492,15 @@ class StoryMenuState extends MusicBeatState
 				vadechar.y =bg4.y +100;
 				cjruby.x = bg4.x - 150;
 				cjruby.y =bg4.y -40;
+				cjruby.color = FlxColor.fromHSL(cjruby.color.hue, cjruby.color.saturation, cjruby.color.lightness - 0.80, 1);
+				gf.color = FlxColor.fromHSL(gf.color.hue,gf.color.saturation, gf.color.lightness - 0.80, 1);
 		}
+
+		if(!ClientPrefs.mainweek)
+			{
+				cjruby.color = FlxColor.fromHSL(cjruby.color.hue, cjruby.color.saturation, cjruby.color.lightness - 100, 1);
+				vadechar.color = FlxColor.fromHSL(vadechar.color.hue, vadechar.color.saturation, vadechar.color.lightness - 100, 1);
+			}
 	}
 
 	function funnyfloat() {
@@ -577,14 +595,36 @@ class StoryMenuState extends MusicBeatState
 		{
 			if (controls.UI_UP_P)
 			{
-				changeWeek(-1);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				if (curWeek == 0)
+					{
+						if(ClientPrefs.mainweek)
+							{
+								changeWeek(-1);
+								FlxG.sound.play(Paths.sound('scrollMenu'));
+							}
+					}
+					else
+						{
+							changeWeek(-1);
+							FlxG.sound.play(Paths.sound('scrollMenu'));
+						}
 			}
 
 			if (controls.UI_DOWN_P)
 			{
-				changeWeek(1);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				if (curWeek == 1)
+					{
+						if(ClientPrefs.mainweek)
+							{
+								changeWeek(1);
+								FlxG.sound.play(Paths.sound('scrollMenu'));
+							}
+					}
+					else
+						{
+							changeWeek(1);
+							FlxG.sound.play(Paths.sound('scrollMenu'));
+						}
 			}
 
 			if (controls.UI_RIGHT_P)
@@ -660,7 +700,7 @@ class StoryMenuState extends MusicBeatState
 			PlayState.storyDifficulty = curDifficulty;
 
 			var thingy:String = '';
-			if (ClientPrefs.oldvoice && curWeek == 2)
+			if (ClientPrefs.oldvoice && curWeek == 1)
 				thingy = '-old';
 
 			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase() + thingy);

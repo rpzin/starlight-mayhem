@@ -131,6 +131,12 @@ class Character extends FlxSprite
 					updateHitbox();
 				}
 
+				if (curCharacter == 'olley')
+					{
+						setGraphicSize(Std.int(width * 1.185));
+						updateHitbox();
+					}
+
 				positionArray = json.position;
 				cameraPosition = json.camera_position;
 

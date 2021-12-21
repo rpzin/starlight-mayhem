@@ -199,8 +199,10 @@ class Note extends FlxSprite
 					case 3:
 						prevNote.animation.play('redhold');
 				}
-
-				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.05 * PlayState.songSpeed;
+				if (isburst)
+					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.05 * (PlayState.songSpeed + 0.65);
+				else
+					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.05 * PlayState.songSpeed;
 				if(PlayState.isPixelStage) {
 					prevNote.scale.y *= 1.19;
 				}
