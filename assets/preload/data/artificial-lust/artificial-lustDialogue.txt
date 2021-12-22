@@ -40,6 +40,7 @@
 :gf:A 2 versus 1 isn't really fair, is it..?
 :bg:14
 :voice:gf19
+:cm:
 :gf:Let me join you in a duet, my love!
 :voice:gf20
 :gf:I'm a little rusty, but remember, my genes are no joke!

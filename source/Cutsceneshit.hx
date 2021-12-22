@@ -60,7 +60,7 @@ class Cutsceneshit extends FlxSpriteGroup
 	public function new(talkingRight:Bool = true, ?dialogueList:Array<String>)
 	{
 		super();
-		skip = ['bg', 'voice','showbox'];
+		skip = ['bg', 'voice','showbox','cm'];
 		// bgMusic = FlxG.sound.playMusic(Paths.music('silence'));
 		// bgMusic.fadeIn(3, 0, 0.7);
 
@@ -201,7 +201,7 @@ class Cutsceneshit extends FlxSpriteGroup
 			startDialogue();
 		}*/
 
-		skip = ['bg', 'voice','showbox'];
+		skip = ['bg', 'voice','showbox','cm'];
 		
 		if (FlxG.keys.justPressed.ANY || (dialogueList.length > 0 && skip.contains(curCharacter))  && dialogueStarted == true)
 		{
@@ -308,6 +308,9 @@ class Cutsceneshit extends FlxSpriteGroup
 				remove(background);
 				background.loadGraphic(Paths.image('cutscenes/$curBg'));
 				add(background);
+			case 'cm':
+				FlxG.sound.playMusic(Paths.music('showtimeYEAAA'), 0);
+				FlxG.sound.music.fadeIn(0.5, 0, 0.125);
 			case 'nar':
 				tags.visible = false;
 			case 'showbox':
