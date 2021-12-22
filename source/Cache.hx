@@ -61,7 +61,7 @@ class Cache extends MusicBeatState
 
 		FlxG.worldBounds.set(0,0);
 
-		FlxGraphic.defaultPersist = true;
+		FlxGraphic.defaultPersist = false;
 
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('load'));
 		menuBG.screenCenter();
@@ -80,26 +80,6 @@ class Cache extends MusicBeatState
 		add(percentlol);
 
 		#if cpp
-		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images/characters")))
-		{
-			if (!i.endsWith(".png"))
-				continue;
-			images.push(i);
-		}
-
-		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/CJ/images")))
-			{
-				if (!i.endsWith(".png"))
-					continue;
-				images2.push(i);
-			}
-
-		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/images/1280x720 storyMenu")))
-			{
-				if (!i.endsWith(".png"))
-					continue;
-				images3.push(i);
-			}
 
 		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/songs")))
 		{
@@ -146,7 +126,7 @@ class Cache extends MusicBeatState
 			ism = 0;
 
 
-			for (i in images)
+			/*for (i in images)
 				{
 					var replaced = i.replace(".png","");
 					trace(replaced);
@@ -165,7 +145,7 @@ class Cache extends MusicBeatState
 					var replaced = i.replace(".png","");
 					//trace(replaced);
 					FlxG.bitmap.add(Paths.image('1280x720 storyMenu/' + replaced));
-				}
+				}*/
 
 			for (i in music)
 				{

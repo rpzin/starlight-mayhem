@@ -225,13 +225,15 @@ class Paths
 	}
 	#end
 
-	inline static public function image(key:String, ?library:String):Dynamic
+	inline static public function image(key:String, ?library:String, ?isSpritesheet:Bool = false):Dynamic
 	{
-		#if MODS_ALLOWED
-		var imageToReturn:FlxGraphic = addCustomGraphic(key);
-		if(imageToReturn != null) return imageToReturn;
-		#end
-		return getPath('images/$key.png', IMAGE, library);
+		var imagePath:String = getPath('images/$key.png', IMAGE, library);
+
+		if (!isSpritesheet)
+			return imagePath;
+
+		var daBitmap = GPUFunctions.bitmapToGPU(imagePath);
+		return daBitmap;
 	}
 	
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
@@ -279,20 +281,10 @@ class Paths
 		return false;
 	}
 
-	inline static public function getSparrowAtlas(key:String, ?library:String)
-	{
-		#if MODS_ALLOWED
-		var imageLoaded:FlxGraphic = addCustomGraphic(key);
-		var xmlExists:Bool = false;
-		if(FileSystem.exists(modsXml(key))) {
-			xmlExists = true;
+	inline static public function getSparrowAtlas(key:String, ?library:String, isSpritesheet:Bool = false)
+		{
+			return FlxAtlasFrames.fromSparrow(image(key, library, isSpritesheet), file('images/$key.xml', library));
 		}
-
-		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(modsXml(key)) : file('images/$key.xml', library)));
-		#else
-		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
-		#end
-	}
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{

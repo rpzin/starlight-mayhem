@@ -315,13 +315,16 @@ class PlayState extends MusicBeatState
 	public var introSoundsSuffix:String = '';
 	var songName:String = Paths.formatToSongPath(SONG.song);
 	var bursttimer:FlxTimer;
-	var doof2:Cutsceneshit;
+	var doof2:Cutsceneshit = null;
 	override public function create()
 	{
 		#if MODS_ALLOWED
 		Paths.destroyLoadedImages(resetSpriteCache);
 		#end
 		resetSpriteCache = false;
+
+		Main.dumping = true;
+		Main.dumpCache();
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -1211,17 +1214,17 @@ class PlayState extends MusicBeatState
 		if (OpenFlAssets.exists(file2)) {
 			dialogue2 = CoolUtil.coolTextFile(file2);
 		}
-		var doof:Cutsceneshit = new Cutsceneshit(false, dialogue);
-		// doof.x += 70;
-		// doof.y = FlxG.height * 0.5;
-		doof.scrollFactor.set();
-		doof.finishThing = checkanims;
-
-		doof2= new Cutsceneshit(false, dialogue2);
-		// doof.x += 70;
-		// doof.y = FlxG.height * 0.5;
-		doof2.scrollFactor.set();
-		doof2.finishThing = endSong;
+		var doof = null;
+		if (songName == 'its-complicated' || isStoryMode)
+			{
+				doof = new Cutsceneshit(false, dialogue);
+				doof.scrollFactor.set();
+				doof.finishThing = checkanims;
+		
+				doof2= new Cutsceneshit(false, dialogue2);
+				doof2.scrollFactor.set();
+				doof2.finishThing = endSong;
+			}
 
 		Conductor.songPosition = -5000;
 
@@ -1380,8 +1383,11 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
-		doof.cameras = [camdia];
-		doof2.cameras = [camdia];
+		if (songName == 'its-complicated' || isStoryMode)
+			{
+				doof.cameras = [camdia];
+				doof2.cameras = [camdia];
+			}
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -1474,8 +1480,6 @@ class PlayState extends MusicBeatState
 						});
 					});
 				case 'senpai' | 'roses' | 'thorns':
-					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
-					schoolIntro(doof);
 				case 'focus':
 					new FlxTimer().start(0.6, function(tmr:FlxTimer)
 						{
@@ -1643,12 +1647,17 @@ class PlayState extends MusicBeatState
 					burstimg.cameras = [camOther];
 					burstimg.y += 1000;
 					add(burstimg);
-
-					FlxTween.tween(burstimg, {y: burstimg.y - 1000}, 1.5, {ease: FlxEase.expoOut});
+					var canpress:Bool = false;
+					FlxTween.tween(burstimg, {y: burstimg.y - 1000}, 1.5, {ease: FlxEase.expoOut,
+						onComplete: function(twn:FlxTween)
+						{
+							canpress=true;
+						}
+					});
 					FlxTween.tween(blackShit, {alpha: 0.5}, 1.5, {ease: FlxEase.expoOut});
 					var pressed:Bool = false;
 					new FlxTimer().start(0.000001, function(timer) {
-						if (!pressed && FlxG.keys.justPressed.ANY)
+						if (!pressed && FlxG.keys.justPressed.ANY && canpress)
 							{
 								pressed = true;
 								FlxTween.tween(burstimg, {y: burstimg.y - 1000}, 1.5, {ease: FlxEase.expoOut});
@@ -1657,6 +1666,8 @@ class PlayState extends MusicBeatState
 									{
 										dad.playAnim('INTRO',true);
 										FlxG.sound.play(Paths.sound('woosh'));
+										remove(burstimg);
+										remove(blackShit);
 										dad.animation.finishCallback = function(INTRO)
 											{
 												startCountdown();
@@ -1797,28 +1808,6 @@ class PlayState extends MusicBeatState
 	//You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
 	{
-		// TO DO: Make this more flexible, maybe?
-		if(dialogueFile.dialogue.length > 0) {
-			inCutscene = true;
-			CoolUtil.precacheSound('dialogue');
-			CoolUtil.precacheSound('dialogueClose');
-			var doof:DialogueBoxPsych = new DialogueBoxPsych(dialogueFile, song);
-			doof.scrollFactor.set();
-			if(endingSong) {
-				doof.finishThing = endSong;
-			} else {
-				doof.finishThing = startCountdown;
-			}
-			doof.cameras = [camdia];
-			add(doof);
-		} else {
-			FlxG.log.warn('Your dialogue file is badly formatted!');
-			if(endingSong) {
-				endSong();
-			} else {
-				startCountdown();
-			}
-		}
 	}
 
 	function schoolIntro(?dialogueBox:Cutsceneshit):Void
@@ -1860,6 +1849,11 @@ class PlayState extends MusicBeatState
 
 	public function startCountdown():Void
 	{
+		@:privateAccess
+		for (key in FlxG.bitmap._cache.keys())
+		{
+			trace(key);
+		}
 		camHUD.visible = true;
 		if(startedCountdown) {
 			callOnLuas('onStartCountdown', []);
@@ -2900,6 +2894,14 @@ songSpeed = SONG.speed;
 			{
 				if (defaultCamZoom <= 0.63)
 					defaultCamZoom = 0.66;
+			}
+
+		if(ClientPrefs.middleScroll)
+			{
+				opponentStrums.forEach(function(daNote:StrumNote)
+					{
+						daNote.alpha = 0;
+					});
 			}
 
 		super.update(elapsed);
@@ -4353,7 +4355,7 @@ songSpeed = SONG.speed;
 										video.finishCallback = function()
 										{
 											FlxG.sound.playMusic(Paths.music('freakyMenu'));
-											MusicBeatState.switchState(new StoryMenuState());
+											MusicBeatState.switchState(new CreditsState());
 											ClientPrefs.mainweek = true;
 											FlxG.save.data.beatenweek1 = true;
 										}

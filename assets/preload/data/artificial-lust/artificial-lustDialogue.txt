@@ -23,8 +23,6 @@
 :bf:Beep!?!
 :voice:gf15
 :gf:That is so totally against the rules, But you can take them on, right?
-:voice:ruby10
-:ruby:S-since when there were rules?!
 :bf:Boop!
 :voice:cj30
 :cj:Alright now, let’s rock on for one final time!
