@@ -136,10 +136,9 @@ class Paths
 		return getPath('$key.lua', TEXT, library);
 	}
 	inline static public function video(key:String, ?library:String)
-		{
-		trace('assets/videos/$key.mp4');
-		return getPath('videos/$key.mp4', BINARY, library);
-		}
+	{
+		return SUtil.getPath() + 'assets/videos/$key.html';
+	}
 
 	static public function sound(key:String, ?library:String):Dynamic
 	{
