@@ -4346,25 +4346,23 @@ songSpeed = SONG.speed;
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
+
 					if (songName == 'artificial-lust')
-						{
-								FlxTransitionableState.skipNextTransIn = false;
-								FlxTransitionableState.skipNextTransOut = false;
-										var video:VideoHandlerMP4 = new VideoHandlerMP4();
-										video.playMP4(Paths.video('final_cutscene'));
-										video.finishCallback = function()
-										{
-											FlxG.sound.playMusic(Paths.music('freakyMenu'));
-											MusicBeatState.switchState(new CreditsState());
-											ClientPrefs.mainweek = true;
-											FlxG.save.data.beatenweek1 = true;
-										}
-						}
-						else
-						{
-							FlxG.sound.playMusic(Paths.music('freakyMenu'));
-							MusicBeatState.switchState(new StoryMenuState());
-						}
+				        {						
+                                                var video:FlxVideo = new FlxVideo(Paths.video('final_cutscene'))
+                                                video.finishCallback = function() 
+                                                {
+					                FlxG.sound.playMusic(Paths.music('freakyMenu'));
+						        MusicBeatState.switchState(new CreditsState());
+							ClientPrefs.mainweek = true;
+							FlxG.save.data.beatenweek1 = true;
+			                        }
+					}
+					else
+					{
+						FlxG.sound.playMusic(Paths.music('freakyMenu'));
+						MusicBeatState.switchState(new StoryMenuState());
+					}
 
 					// if ()
 					if(!usedPractice) {
