@@ -79,20 +79,23 @@ class Cache extends MusicBeatState
 		percentlol.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(percentlol);
 
-		#if cpp
-
+		#if (cpp && !android)
 		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/songs")))
 		{
 			music.push(i);
 		}
 		#end
 
-
-		#if cpp
+		#if (cpp && !android)
 		sys.thread.Thread.create(() -> {
 			cachethem();
 		});
-		#end
+		#elseif android
+                new FlxTimer().start(1.5, function(tmr:FlxTimer)
+		{
+			FlxG.switchState(new TitleState());
+		});
+                #end
 
 		super.create();
 	}
