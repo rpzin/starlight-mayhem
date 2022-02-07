@@ -228,12 +228,7 @@ class Paths
 	inline static public function image(key:String, ?library:String, ?isSpritesheet:Bool = false):Dynamic
 	{
 		var imagePath:String = getPath('images/$key.png', IMAGE, library);
-
-		if (!isSpritesheet)
-			return imagePath;
-
-		var daBitmap = GPUFunctions.bitmapToGPU(imagePath);
-		return daBitmap;
+	        return imagePath;
 	}
 	
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
@@ -242,21 +237,21 @@ class Paths
 		if (!ignoreMods && FileSystem.exists(mods(key)))
 			return File.getContent(mods(key));
 
-		if (FileSystem.exists(getPreloadPath(key)))
-			return File.getContent(getPreloadPath(key));
+		if (FileSystem.exists(SUtil.getPath() + getPreloadPath(key)))
+			return File.getContent(SUtil.getPath() + getPreloadPath(key));
 
 		if (currentLevel != null)
 		{
 			var levelPath:String = '';
 			if(currentLevel != 'shared') {
 				levelPath = getLibraryPathForce(key, currentLevel);
-				if (FileSystem.exists(levelPath))
-					return File.getContent(levelPath);
+				if (FileSystem.exists(SUtil.getPath() + levelPath))
+					return File.getContent(SUtil.getPath() + levelPath);
 			}
 
 			levelPath = getLibraryPathForce(key, 'shared');
-			if (FileSystem.exists(levelPath))
-				return File.getContent(levelPath);
+			if (FileSystem.exists(SUtil.getPath() + levelPath))
+				return File.getContent(SUtil.getPath() + levelPath);
 		}
 		#end
 		return Assets.getText(getPath(key, TEXT));
@@ -282,9 +277,9 @@ class Paths
 	}
 
 	inline static public function getSparrowAtlas(key:String, ?library:String, isSpritesheet:Bool = false)
-		{
-			return FlxAtlasFrames.fromSparrow(image(key, library, isSpritesheet), file('images/$key.xml', library));
-		}
+	{
+		return FlxAtlasFrames.fromSparrow(image(key, library, isSpritesheet), file('images/$key.xml', library));
+	}
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{
@@ -321,7 +316,7 @@ class Paths
 	}
 
 	inline static public function mods(key:String = '') {
-		return 'mods/' + key;
+		return SUtil.getPath() + 'mods/' + key;
 	}
 
 	inline static public function modsJson(key:String) {
@@ -363,7 +358,7 @@ class Paths
 				return fileToCheck;
 			}
 		}
-		return 'mods/' + key;
+		return SUtil.getPath() + 'mods/' + key;
 	}
 	#end
 }
