@@ -4349,7 +4349,7 @@ songSpeed = SONG.speed;
 
 					if (songName == 'artificial-lust')
 				        {						
-                                                var video:FlxVideo = new FlxVideo(Paths.video('final_cutscene'))
+                                                var video:FlxVideo = new FlxVideo(Paths.video('final_cutscene'));
                                                 video.finishCallback = function() 
                                                 {
 					                FlxG.sound.playMusic(Paths.music('freakyMenu'));
