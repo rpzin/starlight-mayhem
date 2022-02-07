@@ -72,8 +72,7 @@ class Main extends Sprite
 						obj.destroy();
 					}
 				}
-	
-				GPUFunctions.disposeAllTextures();
+				
 				Assets.cache.clear("songs");
 				System.gc();
 			}
@@ -95,6 +94,8 @@ class Main extends Sprite
 			gameWidth = Math.ceil(stageWidth / zoom);
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
+
+                SUtil.doTheCheck();
 
 		#if !debug
 		initialState = Cache;
