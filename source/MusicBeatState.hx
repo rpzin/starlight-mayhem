@@ -13,6 +13,11 @@ import flixel.util.FlxColor;
 import flixel.util.FlxGradient;
 import flixel.FlxState;
 import flixel.FlxBasic;
+#if android
+import flixel.input.actions.FlxActionInput;
+import ui.AndroidControls.AndroidControlsSetup;
+import ui.FlxVirtualPad;
+#end
 
 class MusicBeatState extends FlxUIState
 {
@@ -25,6 +30,67 @@ class MusicBeatState extends FlxUIState
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
+
+	#if android
+	var _virtualpad:FlxVirtualPad;
+	var androidc:AndroidControlsSetup;
+	var trackedinputsUI:Array<FlxActionInput> = [];
+	var trackedinputsNOTES:Array<FlxActionInput> = [];
+	#end
+	
+	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
+		#if android
+		_virtualpad = new FlxVirtualPad(DPad, Action);
+		_virtualpad.alpha = 0.75;
+		add(_virtualpad);
+		controls.setVirtualPadUI(_virtualpad, DPad, Action);
+		trackedinputsUI = controls.trackedinputsUI;
+		controls.trackedinputsUI = [];
+		#end
+	}
+
+	public function addAndroidControls() {
+        androidc = new AndroidControlsSetup();
+
+		switch (androidc.mode)
+		{
+			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+				controls.setVirtualPadNOTES(androidc._virtualPad, FULL, NONE);
+			case HITBOX:
+				controls.setHitBoxNOTES(androidc._hitbox);
+			default:
+		}
+
+		trackedinputsNOTES = controls.trackedinputsNOTES;
+		controls.trackedinputsNOTES = [];
+
+        var camcontrol = new flixel.FlxCamera();
+        FlxG.cameras.add(camcontrol);
+        camcontrol.bgColor.alpha = 0;
+		androidc.cameras = [camcontrol];
+
+		androidc.visible = false;
+
+		add(androidc);
+	}
+
+        public function addPadCamera() {
+		#if android
+		var camcontrol = new flixel.FlxCamera();
+		FlxG.cameras.add(camcontrol);
+		camcontrol.bgColor.alpha = 0;
+		_virtualpad.cameras = [camcontrol];
+		#end
+	}
+	
+	override function destroy() {
+		#if android
+		controls.removeFlxInput(trackedinputsUI);
+		controls.removeFlxInput(trackedinputsNOTES);	
+		#end	
+		
+		super.destroy();
+	}		
 
 	override function create() {
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;

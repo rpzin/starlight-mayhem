@@ -91,11 +91,11 @@ class Cache extends MusicBeatState
 			cachethem();
 		});
 		#elseif android
-                new FlxTimer().start(1.5, function(tmr:FlxTimer)
+        new FlxTimer().start(3, function(tmr:FlxTimer)
 		{
 			FlxG.switchState(new TitleState());
 		});
-                #end
+        #end
 
 		super.create();
 	}
