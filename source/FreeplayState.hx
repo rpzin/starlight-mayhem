@@ -86,7 +86,7 @@ class FreeplayState extends MusicBeatState
 		var randostr:String = '';
 		randostr = 'freeplaySonglist';
 
-		var initSonglist = CoolUtil.coolTextFile(Paths.txt(randostr));
+		var initSonglist = CoolUtil.coolTextFile(SUtil.getPath() + Paths.txt(randostr));
 		for (i in 0...initSonglist.length)
 		{
 			if(initSonglist[i] != null && initSonglist[i].length > 0) {
