@@ -20,7 +20,7 @@ using StringTools;
 class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
-	inline public static var VIDEO_EXT = "mp4";
+	inline public static var VIDEO_EXT = "html";
 
 	#if MODS_ALLOWED
 	#if (haxe >= "4.0.0")
@@ -135,9 +135,16 @@ class Paths
 	{
 		return getPath('$key.lua', TEXT, library);
 	}
-	inline static public function video(key:String, ?library:String)
+
+	static public function video(key:String)
 	{
-		return SUtil.getPath() + 'assets/videos/$key.html';
+		#if MODS_ALLOWED
+		var file:String = modsVideo(key);
+		if(FileSystem.exists(file)) {
+			return file;
+		}
+		#end
+		return SUtil.getPath() + 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Dynamic
@@ -181,15 +188,7 @@ class Paths
 			return file;
 		}
 		#end
-		var songName:String = Paths.formatToSongPath(song);
-		var thingy:String = '';
-		switch (songName)
-		{
-			case 'inverted-ascension' | 'echoes' | 'artificial-lust':
-				if (ClientPrefs.oldvoice)
-					thingy = '-old';
-		}
-		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-') + thingy}/Voices.$SOUND_EXT';
+		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Voices.$SOUND_EXT';
 	}
 
 	inline static public function inst(song:String):Any
@@ -200,15 +199,7 @@ class Paths
 			return file;
 		}
 		#end
-		var songName:String = Paths.formatToSongPath(song);
-		var thingy:String = '';
-		switch (songName)
-		{
-			case 'inverted-ascension' | 'echoes' | 'artificial-lust':
-				if (ClientPrefs.oldvoice)
-					thingy = '-old';
-		}
-		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-') + thingy}/Inst.$SOUND_EXT';
+		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Inst.$SOUND_EXT';
 	}
 
 	#if MODS_ALLOWED
@@ -224,15 +215,18 @@ class Paths
 	}
 	#end
 
-	inline static public function image(key:String, ?library:String, ?isSpritesheet:Bool = false):Dynamic
+	inline static public function image(key:String, ?library:String):Dynamic
 	{
-		var imagePath:String = getPath('images/$key.png', IMAGE, library);
-	        return imagePath;
+		#if MODS_ALLOWED
+		var imageToReturn:FlxGraphic = addCustomGraphic(key);
+		if(imageToReturn != null) return imageToReturn;
+		#end
+		return getPath('images/$key.png', IMAGE, library);
 	}
 	
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
-		#if sys
+		#if MODS_ALLOWED
 		if (!ignoreMods && FileSystem.exists(mods(key)))
 			return File.getContent(mods(key));
 
@@ -243,14 +237,14 @@ class Paths
 		{
 			var levelPath:String = '';
 			if(currentLevel != 'shared') {
-				levelPath = getLibraryPathForce(key, currentLevel);
-				if (FileSystem.exists(SUtil.getPath() + levelPath))
-					return File.getContent(SUtil.getPath() + levelPath);
+				levelPath = SUtil.getPath() + getLibraryPathForce(key, currentLevel);
+				if (FileSystem.exists(levelPath))
+					return File.getContent(levelPath);
 			}
 
-			levelPath = getLibraryPathForce(key, 'shared');
-			if (FileSystem.exists(SUtil.getPath() + levelPath))
-				return File.getContent(SUtil.getPath() + levelPath);
+			levelPath = SUtil.getPath() + getLibraryPathForce(key, 'shared');
+			if (FileSystem.exists(levelPath))
+				return File.getContent(levelPath);
 		}
 		#end
 		return Assets.getText(getPath(key, TEXT));
@@ -275,9 +269,19 @@ class Paths
 		return false;
 	}
 
-	inline static public function getSparrowAtlas(key:String, ?library:String, isSpritesheet:Bool = false)
+	inline static public function getSparrowAtlas(key:String, ?library:String)
 	{
-		return FlxAtlasFrames.fromSparrow(image(key, library, isSpritesheet), file('images/$key.xml', library));
+		#if MODS_ALLOWED
+		var imageLoaded:FlxGraphic = addCustomGraphic(key);
+		var xmlExists:Bool = false;
+		if(FileSystem.exists(modsXml(key))) {
+			xmlExists = true;
+		}
+
+		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(modsXml(key)) : file('images/$key.xml', library)));
+		#else
+		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
+		#end
 	}
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
