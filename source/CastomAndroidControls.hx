@@ -128,7 +128,7 @@ class CastomAndroidControls extends MusicBeatState
 		exitbutton.color = FlxColor.fromRGB(255,0,0);
 		add(exitbutton);		
 
-		var savebutton = new FlxButton(exitbutton.x, exitbutton.y + 10, "Save And Exit", function()
+		var savebutton = new FlxButton(exitbutton.x, exitbutton.y + 100, "Save And Exit", function()
 		{
 			save();
 			MusicBeatState.switchState(new OptionsState());
@@ -184,9 +184,6 @@ class CastomAndroidControls extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-
-		checker.x -= -0.27;
-		checker.y -= 0.63;
 
 		updatethefuckingpozitions();
 		

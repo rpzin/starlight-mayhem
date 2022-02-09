@@ -60,6 +60,7 @@ class Character extends FlxSprite
 	public var danceIdle:Bool = false; //Character use "danceLeft" and "danceRight" instead of "idle"
 
 	public var healthIcon:String = 'face';
+	public var altname:String = '';
 	public var animationsArray:Array<AnimArray> = [];
 
 	public var positionArray:Array<Float> = [0, 0];
@@ -257,12 +258,12 @@ class Character extends FlxSprite
 				danced = !danced;
 
 				if (danced)
-					playAnim('danceRight' + idleSuffix);
+					playAnim('danceRight' + idleSuffix + altname);
 				else
-					playAnim('danceLeft' + idleSuffix);
+					playAnim('danceLeft' + idleSuffix + altname);
 			}
-			else if(animation.getByName('idle' + idleSuffix) != null) {
-					playAnim('idle' + idleSuffix);
+			else if(animation.getByName('idle' + idleSuffix + altname) != null) {
+					playAnim('idle' + idleSuffix + altname);
 			}
 		}
 	}
