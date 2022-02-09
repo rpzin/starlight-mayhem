@@ -60,7 +60,6 @@ class Character extends FlxSprite
 	public var danceIdle:Bool = false; //Character use "danceLeft" and "danceRight" instead of "idle"
 
 	public var healthIcon:String = 'face';
-	public var altname:String = '';
 	public var animationsArray:Array<AnimArray> = [];
 
 	public var positionArray:Array<Float> = [0, 0];
@@ -120,7 +119,6 @@ class Character extends FlxSprite
 				if(Assets.exists(Paths.getPath('images/' + json.image + '.txt', TEXT))) {
 					frames = Paths.getPackerAtlas(json.image);
 				} else {
-					trace(json.image);
 					frames = Paths.getSparrowAtlas(json.image);
 				}
 				imageFile = json.image;
@@ -130,12 +128,6 @@ class Character extends FlxSprite
 					setGraphicSize(Std.int(width * jsonScale));
 					updateHitbox();
 				}
-
-				if (curCharacter == 'olley')
-					{
-						setGraphicSize(Std.int(width * 1.185));
-						updateHitbox();
-					}
 
 				positionArray = json.position;
 				cameraPosition = json.camera_position;
@@ -196,7 +188,6 @@ class Character extends FlxSprite
 					animation.getByName('singRIGHT').frames = animation.getByName('singLEFT').frames;
 					animation.getByName('singLEFT').frames = oldRight;
 				}
-
 				// IF THEY HAVE MISS ANIMATIONS??
 				if (animation.getByName('singLEFTmiss') != null && animation.getByName('singRIGHTmiss') != null)
 				{
@@ -266,12 +257,12 @@ class Character extends FlxSprite
 				danced = !danced;
 
 				if (danced)
-					playAnim('danceRight' + idleSuffix + altname);
+					playAnim('danceRight' + idleSuffix);
 				else
-					playAnim('danceLeft' + idleSuffix + altname);
+					playAnim('danceLeft' + idleSuffix);
 			}
-			else if(animation.getByName('idle' + idleSuffix + altname) != null) {
-					playAnim('idle' + idleSuffix + altname);
+			else if(animation.getByName('idle' + idleSuffix) != null) {
+					playAnim('idle' + idleSuffix);
 			}
 		}
 	}

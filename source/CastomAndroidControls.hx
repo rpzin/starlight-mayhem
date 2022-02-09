@@ -32,7 +32,7 @@ class CastomAndroidControls extends MusicBeatState
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
 
-	var controlitems:Array<String> = ['right control', 'left control','keyboard','custom', 'hitbox'];
+	var controlitems:Array<String> = ['right control','left control','keyboard','custom','hitbox'];
 
 	var curSelected:Int = 0;
 
@@ -46,7 +46,6 @@ class CastomAndroidControls extends MusicBeatState
 	public static var star1:FlxSprite;
 	public static var star2:FlxSprite;
 	public static var black:FlxSprite;
-	public static var title:FlxSprite;
 	public static var left:FlxSprite;
 	public static var right:FlxSprite;
 
@@ -71,19 +70,8 @@ class CastomAndroidControls extends MusicBeatState
 		black.antialiasing = ClientPrefs.globalAntialiasing;
 		add(black);
 
-		title = new FlxSprite().loadGraphic(Paths.image('1280x720 optionsMenu/optionsTitle'));
-		title.updateHitbox();
-		title.screenCenter();
-		title.y -= 235;
-		title.antialiasing = ClientPrefs.globalAntialiasing;
-		add(title);
-
 		FlxG.camera.zoom = 3;
 		FlxTween.tween(FlxG.camera, {zoom: 1}, 1.1, {ease: FlxEase.expoInOut});
-
-		title.x -= 1000;
-		FlxTween.tween(title, {x: title.x +1000}, 0.9, {startDelay: 0.6,
-			ease: FlxEase.expoOut});
 
 		black.x -= 1000;
 		FlxTween.tween(black, {x: black.x +1000}, 0.9, {startDelay: 0.6,
@@ -131,21 +119,23 @@ class CastomAndroidControls extends MusicBeatState
 		FlxTween.tween(star1, {y: star1.y+1000}, 0.8, {startDelay: 0.9,
 			ease: FlxEase.expoOut});
 
-    	var exitbutton = new FlxButton(FlxG.width - 125, 50, "Exit", function()
+		var exitbutton = new FlxButton(FlxG.width - 120, 50, "Exit", function()
     	{
-			MusicBeatState.switchState(new OptionsState());
+			MusicBeatState.switchState(new OptionsState());    	
 		});
 		exitbutton.setGraphicSize(Std.int(exitbutton.width) * 3);
+		exitbutton.label.setFormat(null, 16, 0x333333, "center");
 		exitbutton.color = FlxColor.fromRGB(255,0,0);
 		add(exitbutton);		
 
-		var savebutton = new FlxButton(exitbutton.x, exitbutton.y + 50, "Save And Exit", function()
+		var savebutton = new FlxButton(exitbutton.x, exitbutton.y + 10, "Save And Exit", function()
 		{
 			save();
 			MusicBeatState.switchState(new OptionsState());
 		});
 		savebutton.setGraphicSize(Std.int(savebutton.width) * 3);
-		savebutton.color = FlxColor.fromRGB(255,0,0);
+        savebutton.label.setFormat(null, 16, 0x333333, "center");		
+		savebutton.color = FlxColor.fromRGB(0,255,0);
 		add(savebutton);
 
 		_pad = new FlxVirtualPad(RIGHT_FULL, NONE);
@@ -156,7 +146,7 @@ class CastomAndroidControls extends MusicBeatState
 		_hb.visible = false;
 		add(_hb);
 
-		inputvari = new FlxText(0, 50, 0, controlitems[0], 48);
+		inputvari = new FlxText(0, 50, 0, controlitems[curSelected], 48);
 		inputvari.screenCenter(X);
 		add(inputvari);
 
@@ -194,6 +184,9 @@ class CastomAndroidControls extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		checker.x -= -0.27;
+		checker.y -= 0.63;
 
 		updatethefuckingpozitions();
 		
@@ -360,9 +353,9 @@ class CastomAndroidControls extends MusicBeatState
 	}
 
 	function updatethefuckingpozitions() {
-		inputvari.screenCenter(X);		
 		leftArrow.x = inputvari.x - 60;
 		rightArrow.x = inputvari.x + inputvari.width + 10;
+		inputvari.screenCenter(X);
 	}
 
 	override function destroy()
